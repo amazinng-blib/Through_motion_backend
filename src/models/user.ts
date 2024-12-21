@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db/DB';
-import BusinessForm from './businessForm';
+// import BusinessForm from './businessForm';
 
 export type UserModelType = {
   id?: number;
@@ -78,14 +78,14 @@ User.init(
   {
     sequelize,
     modelName: 'Users',
-    tableName: 'UsersTable',
+    tableName: 'Users_table',
     underscored: false,
     timestamps: false,
   }
 );
 
-User.hasMany(BusinessForm, {
-  foreignKey: 'userId',
-  as: 'businesses', // Alias for easier queries
-});
+// User.hasMany(BusinessForm, {
+//   foreignKey: 'userId',
+//   as: 'businesses', // Alias for easier queries
+// });
 export default User;

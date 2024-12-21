@@ -82,7 +82,7 @@ BusinessForm.init(
   {
     sequelize,
     modelName: 'BusinessForm',
-    tableName: 'businessForm',
+    tableName: 'business_form',
     underscored: false,
     timestamps: false,
   }
