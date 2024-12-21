@@ -10,7 +10,7 @@ app.use(express.json());
 import { router as userRoutes } from './routes/userRoutes';
 app.use('/api/v1/users', userRoutes);
 
-const appPort = process.env.PORT || 6200;
+const appPort = process.env.PORT ?? 6200;
 
 app.listen(appPort, () => {
   console.log(`App listening on :http://localhost:${appPort}`);
