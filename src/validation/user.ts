@@ -15,3 +15,17 @@ export const UserSchema = z.object({
 });
 
 export type UserType = z.infer<typeof UserSchema>;
+
+export const LoginSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string(),
+});
+
+export type LoginType = z.infer<typeof LoginSchema>;
+
+export const ChangePasswordSchema = z.object({
+  oldPassword: z.string(),
+  newPassword: z.string(),
+});
+
+export type ChangePasswordType = z.infer<typeof ChangePasswordSchema>;

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UserSchema, UserType } from '../../validation/user';
+import { UserSchema, type UserType } from '../../validation/user';
 import User from '../../models/user';
 import { ZodError } from 'zod';
 import validator from 'validator';
