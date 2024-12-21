@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const UpdateBusinessFormSchema = z.object({
+export const BusinessFormSchema = z.object({
   businessName: z.string(),
   description: z.string(),
   address: z.string(),
@@ -9,4 +9,4 @@ export const UpdateBusinessFormSchema = z.object({
   otherInfo: z.string(),
 });
 
-export type UpdateBusinessFormType = z.infer<typeof UpdateBusinessFormSchema>;
+export type BusinessFormType = z.infer<typeof BusinessFormSchema>;
