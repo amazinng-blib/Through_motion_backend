@@ -1,7 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db/DB';
 
-type UserModelType = {
+export type UserModelType = {
   id?: number;
   firstName: string;
   lastName: string;
