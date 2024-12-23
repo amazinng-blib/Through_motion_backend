@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgress",
+    "database": "motion",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+
+  "production": {
+    "username": "through_motion_user",
+    "password": "c771ZCiE6QVRRufJLB1eph1QyS2cogZ2",
+    "database": "through_motion",
+    "host": "postgresql://through_motion_user:c771ZCiE6QVRRufJLB1eph1QyS2cogZ2@dpg-ctkhp43v2p9s7388gfg0-a.oregon-postgres.render.com/through_motion",
+    "port": 5432,
+    " dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  }
+}

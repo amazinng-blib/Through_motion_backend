@@ -10,7 +10,7 @@ export const UserSchema = z.object({
     .min(3, 'Last name should be at least 3 characters')
     .max(60, 'Last name should not exceed 60 characters'),
   email: z.string().email('Invalid email address'),
-  password: z.string(),
+  password: z.string().optional(),
   displayName: z.string(),
 });
 

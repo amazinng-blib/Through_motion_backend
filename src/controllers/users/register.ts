@@ -40,7 +40,7 @@ export async function registerUser(req: Request, res: Response) {
 
     // Create new user
     const newUser = await User.create(userData);
-    const { password, ...userDetails } = newUser;
+    const { password, ...userDetails } = newUser.dataValues;
 
     const response = {
       message: 'User registered successfully',
