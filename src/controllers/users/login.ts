@@ -28,7 +28,7 @@ export async function login(req: Request, res: Response) {
     const accessToken = await generateAccessToken(user);
     const refreshToken = await generateRefreshToken(user);
 
-    const { password, ...userDetails } = user;
+    const { password, ...userDetails } = user.dataValues;
     return res
       .status(200)
       .json({ userDetails, token: { accessToken, refreshToken } });
