@@ -62,7 +62,6 @@ User.init(
 
     isVerified: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
       defaultValue: false,
     },
 
