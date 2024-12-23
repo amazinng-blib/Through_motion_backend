@@ -11,7 +11,7 @@ export async function registerUser(req: Request, res: Response) {
     const requestData: UserType = UserSchema.parse(req.body);
     const strongPassword = generateStrongPassword();
 
-    const userPassword = requestData?.password || strongPassword;
+    const userPassword = requestData?.password ?? strongPassword;
     // Encrypt password
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(userPassword, salt);

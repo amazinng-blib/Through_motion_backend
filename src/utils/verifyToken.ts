@@ -25,7 +25,7 @@ export const verifyToken = (
       process.env.ACCESS_TOKEN_PRIVATE_KEY as Secret
     ) as JwtPayload;
 
-    req.body.userId = verified.id;
+    req.body.userID = verified.id;
 
     next();
   } catch (error: any) {
