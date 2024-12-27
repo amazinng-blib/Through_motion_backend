@@ -7,11 +7,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-import { router as userRoutes } from './routes/userRoutes';
-app.use('/api/v1/users', userRoutes);
+import { router as authRoutes } from './routes/user.routes';
+import { router as subscriptionRoutes } from './routes/subscription.routes';
+
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/subscriptions', subscriptionRoutes);
 
 app.use('/', (req: Request, res: Response) => {
-  return res.status(200).send('OK');
+  return res.status(200).send('This is the root of the API');
 });
 
 const appPort = process.env.PORT ?? 6200;

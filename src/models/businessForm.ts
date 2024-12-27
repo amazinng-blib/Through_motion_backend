@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import User from './user';
-import { sequelize } from '../db/DB';
+import { sequelize } from '../config/db/DB';
 
 type BusinessModelType = {
   id?: number;
