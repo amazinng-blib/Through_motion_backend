@@ -26,6 +26,7 @@ export type LoginType = z.infer<typeof LoginSchema>;
 export const ChangePasswordSchema = z.object({
   oldPassword: z.string(),
   newPassword: z.string(),
+  id: z.number(),
 });
 
 export type ChangePasswordType = z.infer<typeof ChangePasswordSchema>;

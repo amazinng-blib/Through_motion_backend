@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../db/DB';
+import { sequelize } from '../config/db/DB';
 // import BusinessForm from './businessForm';
 
 export type UserModelType = {
