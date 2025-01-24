@@ -1,5 +1,4 @@
 import { sequelize } from '../../db/DB';
-import UserSubscription from '../../models/UserSubscription';
 import ServiceCategory from '../../models/ServiceCategory';
 import { getActiveServiceCategory } from '../subscription/utils/getActiveServiceCategory';
 import * as subscriptionService from '../subscription/subscription.services';
@@ -33,7 +32,14 @@ export async function handleSubscriptionCharge(payload: any) {
       { transaction }
     );
 
-    if (userActiveServiceCategory.length !== 0) {
+    const shouldUpgrade = userActiveServiceCategory.some(
+      (category) =>
+        category.name === name &&
+        category.tier === tier &&
+        category.type === type
+    );
+
+    if (userActiveServiceCategory.length !== 0 && shouldUpgrade) {
       await Promise.all(
         userActiveServiceCategory.map(async (item) => {
           const checkUserCategory = await ServiceCategory.findOne({
@@ -86,67 +92,65 @@ export async function handleSubscriptionCharge(payload: any) {
   }
 }
 
-export async function handleSubscriptionCreate(payload: any) {
-  const transaction = await sequelize.transaction();
+// export async function handleSubscriptionCreate(payload: any) {
+//   const transaction = await sequelize.transaction();
 
-  try {
-    const {
-      plan: { plan_code },
-      status,
-      userId,
-    } = payload;
+//   try {
+//     const {
+//       plan: { plan_code },
+//       status,
+//       userId,
+//     } = payload;
 
-    if (status !== 'active') {
-      throw new Error('Subscription is not active');
-    }
+//     if (status !== 'active') {
+//       throw new Error('Subscription is not active');
+//     }
 
-    const serviceCategory = await ServiceCategory.findOne({
-      where: { userId },
-      transaction,
-    });
+//     const serviceCategory = await ServiceCategory.findOne({
+//       where: { userId },
+//       transaction,
+//     });
 
-    if (!serviceCategory) {
-      throw new Error('Service category not found');
-    }
+//     if (!serviceCategory) {
+//       throw new Error('Service category not found');
+//     }
 
-    await UserSubscription.upsert(
-      {
-        userId: serviceCategory.userId,
-        planCode: plan_code,
-        serviceCategoryPlanCode: serviceCategory.planCode,
-        isActive: true,
-        totalPrice: serviceCategory.servicePrice,
-        discountApplied: false,
-      },
-      { transaction }
-    );
+//     await UserSubscription.upsert(
+//       {
+//         userId: serviceCategory.userId,
+//         planCode: plan_code,
+//         serviceCategoryPlanCode: serviceCategory.planCode,
+//         isActive: true,
+//         totalPrice: serviceCategory.servicePrice,
+//         discountApplied: false,
+//       },
+//       { transaction }
+//     );
 
-    await transaction.commit();
-  } catch (error) {
-    await transaction.rollback();
-    throw error;
-  }
-}
+//     await transaction.commit();
+//   } catch (error) {
+//     await transaction.rollback();
+//     throw error;
+//   }
+// }
 
-export async function handleSubscriptionDisable(payload: any) {
-  const transaction = await sequelize.transaction();
+// export async function handleSubscriptionDisable(payload: any) {
+//   const transaction = await sequelize.transaction();
 
-  try {
-    const {
-      plan: { plan_code },
-    } = payload;
+//   try {
+//     const { userID } = payload;
 
-    await UserSubscription.update(
-      { isActive: false },
-      {
-        where: { planCode: plan_code },
-        transaction,
-      }
-    );
+//     await UserSubscription.update(
+//       { isActive: false, isCancel: true },
+//       {
+//         where: { userId: userID },
+//         transaction,
+//       }
+//     );
 
-    await transaction.commit();
-  } catch (error) {
-    await transaction.rollback();
-    throw error;
-  }
-}
+//     await transaction.commit();
+//   } catch (error) {
+//     await transaction.rollback();
+//     throw error;
+//   }
+// }

@@ -5,6 +5,7 @@ import {
   updateSubscriptionSchema,
 } from '../../validation/subscription';
 import { upgradeSubscription } from '../../services/subscription/subscription-upgrade';
+import { handleSubscriptionDisable } from '../../services/subscription/cancelSubscription';
 
 export async function createSubscription(req: Request, res: Response) {
   try {
@@ -48,6 +49,21 @@ export async function subscriptionUpgrade(req: Request, res: Response) {
 
     const subscription = await upgradeSubscription(bodyData);
     res.status(200).json(subscription);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+}
+
+export async function cancelSubscription(req: Request, res: Response) {
+  try {
+    const { userID: userId } = req.body;
+    await handleSubscriptionDisable(userId);
+
+    return res.status(200).json({ message: 'Subscription cancelled' });
   } catch (error) {
     if (error instanceof Error) {
       res.status(400).json({ error: error.message });
