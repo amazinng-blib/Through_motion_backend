@@ -14,8 +14,8 @@ export const serviceCategorySchema = z.object({
   servicePrice: priceSchema,
   currency: z.string().length(3).default('GBP'),
   planCode: z.string(),
-  startDate: z.date(),
-  endDate: z.date(),
+  // startDate: z.date(),
+  // endDate: z.date(),
   duration: z.number().positive(),
 });
 

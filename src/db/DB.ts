@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
+import { DBEnviroment } from '../config/env';
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ if (!databaseUrl) {
   );
 }
 
+const dbConfig = DBEnviroment[isProduction ? 'production' : 'development'];
+
 export const sequelize = new Sequelize(databaseUrl, {
   dialect: 'postgres',
   logging: false,
@@ -28,9 +31,13 @@ export const sequelize = new Sequelize(databaseUrl, {
         },
       }
     : {},
+  ...Object.fromEntries(
+    Object.entries(dbConfig).filter(
+      ([key]) => !['database', 'username', 'password', 'host'].includes(key)
+    )
+  ),
 });
 
-// Function to connect to the database
 const connectToDB = async () => {
   try {
     await sequelize.authenticate();

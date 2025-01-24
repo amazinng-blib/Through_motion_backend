@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '../config/db/DB';
+import { sequelize } from '../db/DB';
 import ServiceCategory from './ServiceCategory';
 
 export type UserSubscriptionAttributes = {
