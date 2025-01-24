@@ -11,6 +11,7 @@ export type UserSubscriptionAttributes = {
   // endDate: Date;
   isActive: boolean;
   totalPrice: number;
+  isCancel?: boolean;
   discountApplied: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -19,7 +20,7 @@ export type UserSubscriptionAttributes = {
 interface UserSubscriptionCreationAttributes
   extends Optional<
     UserSubscriptionAttributes,
-    'id' | 'isActive' | 'discountApplied'
+    'id' | 'isActive' | 'discountApplied' | 'isCancel'
   > {}
 
 class UserSubscription
@@ -35,6 +36,7 @@ class UserSubscription
   public isActive!: boolean;
   public totalPrice!: number;
   public discountApplied!: boolean;
+  public isCancel?: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -87,6 +89,10 @@ UserSubscription.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    isCancel: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -100,7 +106,7 @@ UserSubscription.init(
     sequelize,
     modelName: 'UserSubscription',
     tableName: 'UserSubscriptions',
-    timestamps: true,
+    timestamps: false,
     underscored: false,
   }
 );
