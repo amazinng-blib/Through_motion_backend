@@ -21,7 +21,7 @@ export async function createSubscription(req: Request, res: Response) {
     );
 
     if (!paymentStatus) {
-      res.status(400).json({ error: 'Payment verification failed' });
+      return res.status(400).json({ error: 'Payment verification failed' });
     }
 
     const subscriptions = await subscriptionService.createSubscription(

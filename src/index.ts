@@ -9,13 +9,18 @@ app.use(express.json());
 
 import { router as authRoutes } from './routes/user.routes';
 import { router as subscriptionRoutes } from './routes/subscription.routes';
+import { errorHandler } from './middleware/errorHandler';
+import { notFoundHandler } from './middleware/notFound';
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/subscriptions', subscriptionRoutes);
 
 app.use('/', (req: Request, res: Response) => {
-  return res.status(200).send('This is the root of the API');
+  return res.status(200).send('This is through motion root of the API');
 });
+
+app.use(errorHandler);
+app.use(notFoundHandler);
 
 const appPort = process.env.PORT ?? 6200;
 
