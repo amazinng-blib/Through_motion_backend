@@ -1,18 +1,32 @@
 import { Router } from 'express';
-import * as subscriptionController from '../controllers/subscription/subscription.controllers';
-import { validateSubscription } from '../middleware/validateSubscription';
+import { verifyToken } from '../middleware/verifyToken';
+
+import { getAllSubscriptionController } from '../controllers/subscription/getAllSubscriptionController';
+import { getSubscriptionByIdController } from '../controllers/subscription/getSubscriptionByIdController';
+import { subscribeToServiceController } from '../controllers/subscription/subscribeToServiceController';
+import { checkSubscriptionExpiration } from '../middleware/checkSubscriptionExpiration';
+import { adminMiddleware } from '../middleware/adminMiddleware';
+import { updateServiceController } from '../controllers/subscription/updateServiceController';
 
 export const router = Router();
 
-router.post('/', subscriptionController.createSubscription);
-router.put(
-  '/:id',
-  validateSubscription,
-  subscriptionController.subscriptionUpgrade
+router.get('/services', getAllSubscriptionController);
+router.get('/services/:id', verifyToken, getSubscriptionByIdController);
+router.post(
+  '/services',
+  verifyToken,
+  adminMiddleware,
+  subscribeToServiceController
 );
-
+router.put(
+  '/services/update/:id',
+  verifyToken,
+  adminMiddleware,
+  updateServiceController
+);
 router.get(
-  '/:subscriptionId/status',
-  validateSubscription,
-  subscriptionController.checkSubscriptionStatus
+  '/user-services',
+  verifyToken,
+  checkSubscriptionExpiration,
+  subscribeToServiceController
 );

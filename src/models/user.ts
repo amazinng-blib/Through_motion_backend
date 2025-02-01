@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db/DB';
+import { Role } from '../enum/user.enums';
 // import BusinessForm from './businessForm';
 
 export type UserModelType = {
@@ -10,6 +11,7 @@ export type UserModelType = {
   password: string;
   displayName: string;
   isVerified?: boolean;
+  role: Role;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -26,6 +28,7 @@ class User
   public email!: string;
   public password!: string;
   public displayName!: string;
+  public role!: Role;
   public isVerified!: boolean;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -58,6 +61,12 @@ User.init(
     displayName: {
       type: DataTypes.STRING(255),
       allowNull: false,
+    },
+
+    role: {
+      type: DataTypes.ENUM(...Object.values(Role)),
+      allowNull: false,
+      defaultValue: Role.USER,
     },
 
     isVerified: {

@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import { verifyPaystackSignature } from '../../utils/paystack';
-import {
-  handleSubscriptionCharge,
-  // handleSubscriptionCreate,
-} from '../../services/webhooks/paystack.services';
+import { handleSubscriptionCharge } from '../../services/webhooks/paystack.services';
 
 export async function paystackWebhookHandler(req: Request, res: Response) {
   try {
@@ -14,13 +11,11 @@ export async function paystackWebhookHandler(req: Request, res: Response) {
 
     const { event, data } = req.body;
 
-    switch (event) {
-      case 'charge.success':
-        await handleSubscriptionCharge(data);
-        res.status(200).json({ received: true });
-        break;
-      default:
-        console.log(`Unhandled webhook event: ${event}`);
+    if (event) {
+      await handleSubscriptionCharge(data);
+      res.status(200).json({ received: true });
+    } else {
+      console.log(`Unhandled webhook event: ${event}`);
     }
   } catch (error) {
     console.error('Paystack webhook error:', error);
