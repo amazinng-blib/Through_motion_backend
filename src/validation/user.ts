@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { Role } from '../enum/user.enums';
+
+export const userRoleEnums = z.nativeEnum(Role);
 
 export const UserSchema = z.object({
   firstName: z
@@ -12,6 +15,7 @@ export const UserSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().optional(),
   displayName: z.string(),
+  role: userRoleEnums.default(Role.USER),
 });
 
 export type UserType = z.infer<typeof UserSchema>;

@@ -1,4 +1,4 @@
-import { User } from '../../models';
+import User from '../../models/user';
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -22,5 +22,9 @@ export async function loginService(input: LoginType) {
 
   const { password, ...userDetails } = user.dataValues;
 
-  return { userDetails, token: { accessToken, refreshToken } };
+  return {
+    message: 'Logged in successfully',
+    userDetails,
+    token: { accessToken, refreshToken },
+  };
 }

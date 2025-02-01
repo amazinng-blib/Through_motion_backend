@@ -1,4 +1,4 @@
-import { User } from '../../models';
+import User from '../../models/user';
 import { type ChangePasswordType } from '../../validation/user';
 import bcrypt from 'bcryptjs';
 
@@ -29,5 +29,5 @@ export async function ChangePasswordService(input: ChangePasswordType) {
   user.password = passwordHash;
   await user.save();
 
-  return user;
+  return { message: 'Password change is successfull', user };
 }

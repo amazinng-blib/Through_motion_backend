@@ -1,4 +1,4 @@
-import { User } from '../../models';
+import User from '../../models/user';
 import { generateStrongPassword } from '../../utils/strongPasswordGenerator';
 import { type UserType } from '../../validation/user';
 import bcrypt from 'bcryptjs';
