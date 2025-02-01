@@ -9,6 +9,6 @@ export async function getAllSubscriptionController(
     const services = await getAllServices();
     res.json(services);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch pricing information' });
+    res.status(500).json({ error: 'Failed to fetch services' });
   }
 }

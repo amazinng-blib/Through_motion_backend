@@ -1,22 +1,34 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { errorHandler } from './middleware/errorHandler';
+import { notFoundHandler } from './middleware/notFound';
+import path from 'path';
+import { router as authRoutes } from './routes/user.routes';
+import { router as pricingRoutes } from './routes/subscription.routes';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerOptions } from './swagger/swagger-options';
+
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-import { errorHandler } from './middleware/errorHandler';
-import { notFoundHandler } from './middleware/notFound';
-
-import { router as authRoutes } from './routes/user.routes';
-import { router as pricingRoutes } from './routes/subscription.routes';
 
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/pricing', pricingRoutes);
+app.use('/api/v1/services', pricingRoutes);
 
-app.use('/', (req: Request, res: Response) => {
-  return res.status(200).send('This is through motion root of the API');
+// Serve Swagger UI at /api-docs endpoint
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use(
+  express.static(path.join(__dirname, 'node_modules', 'swagger-ui-dist'))
+);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('This is through motion root of the API');
 });
 
 app.use(errorHandler);
