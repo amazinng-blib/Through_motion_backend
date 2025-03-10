@@ -1,3 +1,4 @@
+import { AppError } from '../../middleware/errorHandler';
 import User from '../../models/user';
 import { generateStrongPassword } from '../../utils/strongPasswordGenerator';
 import { type UserType } from '../../validation/user';
@@ -15,7 +16,7 @@ export async function registerUserService(input: UserType) {
 
   // Validate email
   if (!validator.isEmail(userData.email)) {
-    throw new Error('Email must be a valid email');
+    throw new AppError('Email must be a valid email', 400);
   }
 
   // Check if user already exists
@@ -24,12 +25,12 @@ export async function registerUserService(input: UserType) {
   });
 
   if (userExist) {
-    throw new Error('User already exists');
+    throw new AppError('User already exists', 400);
   }
 
   // Validate password strength
   if (!validator.isStrongPassword(userData.password)) {
-    throw new Error('Please enter a strong password to continue');
+    throw new AppError('Please enter a strong password to continue', 400);
   }
 
   // Create new user

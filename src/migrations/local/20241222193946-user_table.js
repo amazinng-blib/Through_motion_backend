@@ -1,5 +1,7 @@
 'use strict';
 
+const Role = ['ADMIN', 'USER', 'MARKETER'];
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -30,6 +32,11 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
+      role: {
+        type: Sequelize.ENUM(...Object.values(Role)),
+        allowNull: false,
+        defaultValue: Role.USER,
+      },
       isVerified: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
@@ -37,12 +44,12 @@ module.exports = {
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     });
   },

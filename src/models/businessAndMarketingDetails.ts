@@ -12,6 +12,11 @@ type AdDetailType = {
   url: string;
 };
 
+type FileType = {
+  url: string;
+  fileName: string;
+};
+
 type DigitalMarketingDetailType = {
   details: string;
   date: Date;
@@ -35,7 +40,7 @@ type BusinessAndMarketingDetailsModelType = {
   };
   previousCampaign: {
     achievePreviousObjectives: boolean;
-    file: string;
+    file: Array<FileType>;
   };
   createdAt?: Date;
   updatedAt?: Date;
@@ -65,7 +70,7 @@ class BusinessAndMarketingDetails
   };
   public previousCampaign!: {
     achievePreviousObjectives: boolean;
-    file: string;
+    file: Array<FileType>;
   };
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -80,6 +85,8 @@ BusinessAndMarketingDetails.init(
     },
     userId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      unique: true,
       references: {
         model: User,
         key: 'id',
@@ -134,10 +141,14 @@ BusinessAndMarketingDetails.init(
     timestamps: false,
   }
 );
+User.hasOne(BusinessAndMarketingDetails, {
+  foreignKey: 'userId',
+  as: 'businessAndMarketingDetails',
+});
 
 BusinessAndMarketingDetails.belongsTo(User, {
   foreignKey: 'userId',
-  as: 'marketingDetails', // Alias for easier queries
+  as: 'user', // Alias for easier queries
 });
 
 export default BusinessAndMarketingDetails;

@@ -92,8 +92,4 @@ User.init(
   }
 );
 
-// User.hasMany(BusinessForm, {
-//   foreignKey: 'userId',
-//   as: 'businesses', // Alias for easier queries
-// });
 export default User;
