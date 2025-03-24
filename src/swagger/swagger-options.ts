@@ -31,11 +31,11 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
-                    firstName: {
+                    first_name: {
                       type: 'string',
                       example: 'John',
                     },
-                    lastName: {
+                    last_name: {
                       type: 'string',
                       example: 'Doe',
                     },
@@ -47,7 +47,7 @@ export const swaggerOptions: Options = {
                       type: 'string',
                       example: 'JohnDoe123456##!',
                     },
-                    displayName: {
+                    display_name: {
                       type: 'string',
                       example: 'John23',
                     },
@@ -62,7 +62,6 @@ export const swaggerOptions: Options = {
                     'email',
                     'password',
                     'displayName',
-                    'role',
                   ],
                 },
               },
@@ -612,15 +611,15 @@ export const swaggerOptions: Options = {
           type: 'object',
           properties: {
             id: { type: 'integer' },
-            firstName: { type: 'string' },
-            lastName: { type: 'string' },
+            first_name: { type: 'string' },
+            last_name: { type: 'string' },
             email: { type: 'string', format: 'email' },
             password: { type: 'string' },
-            displayName: { type: 'string' },
+            display_name: { type: 'string' },
             role: { type: 'string', enum: Object.values(Role) },
-            isVerified: { type: 'boolean' },
-            createdAt: { type: 'string', format: 'date-time' },
-            updatedAt: { type: 'string', format: 'date-time' },
+            is_verified: { type: 'boolean' },
+            created_at: { type: 'string', format: 'date-time' },
+            updated_at: { type: 'string', format: 'date-time' },
           },
           required: [
             'firstName',
