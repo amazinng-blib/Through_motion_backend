@@ -12,18 +12,31 @@ export async function addBusinessAndContactFormQuestionareService(
     throw new AppError('User does not exist', 404);
   }
 
-  //   check if user has added questionaire
+  // Use upsert to create or update
+  const [businessContactForm, created] = await BusinessAndContactForm.upsert(
+    input
+  );
 
-  const hasAddedQuestionare = await BusinessAndContactForm.findOne({
+  return {
+    message: created
+      ? 'Business and contact form questionnaire added successfully'
+      : 'Business and contact form questionnaire updated successfully',
+    data: businessContactForm,
+  };
+}
+
+export async function getBusinessAndContactFormQuestionareService(
+  userId: number
+) {
+  const businessDetails = await BusinessAndContactForm.findOne({
     where: {
-      userId: input.userId,
+      userId,
     },
   });
 
-  if (hasAddedQuestionare) return;
+  if (!businessDetails) {
+    throw new AppError('Business and contact details not found', 404);
+  }
 
-  await BusinessAndContactForm.create(input);
-  return {
-    message: 'Business and contact form questionare added successfully',
-  };
+  return businessDetails;
 }

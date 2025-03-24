@@ -12,16 +12,31 @@ export async function addBusinessAndMarketingDetailsQuestionareService(
     throw new AppError('User does not exist', 404);
   }
 
-  //   check if user has added questionaire
-  const hasAddedQuestionare = await BusinessAndMarketingDetails.findOne({
+  // Use upsert to create or update
+  const [businessDetails, created] = await BusinessAndMarketingDetails.upsert(
+    input
+  );
+
+  return {
+    message: created
+      ? 'Questionnaire added successfully'
+      : 'Questionnaire updated successfully',
+    data: businessDetails,
+  };
+}
+
+export async function getBusinessAndMarketingDetailsQuestionareService(
+  userId: number
+) {
+  const businessDetails = await BusinessAndMarketingDetails.findOne({
     where: {
-      userId: input.userId,
+      userId,
     },
   });
 
-  if (hasAddedQuestionare) return;
+  if (!businessDetails) {
+    throw new AppError('Business and marketing details not found', 404);
+  }
 
-  await BusinessAndMarketingDetails.create(input);
-
-  return { message: 'Questionare added successfully' };
+  return businessDetails;
 }

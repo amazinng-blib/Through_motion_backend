@@ -14,8 +14,8 @@ type BusinessAndContactModelType = {
   businessType: string;
   companySize: number;
   establishedYear: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 interface BusinessAndContactAttributes
@@ -36,8 +36,8 @@ class BusinessAndContactForm
   public businessType!: string;
   public companySize!: number;
   public establishedYear!: Date;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public readonly created_at!: Date;
+  public readonly updated_at!: Date;
 }
 
 BusinessAndContactForm.init(
@@ -87,17 +87,18 @@ BusinessAndContactForm.init(
 
     businessType: {
       type: DataTypes.STRING,
-      defaultValue: false,
+      allowNull: false,
+      defaultValue: 'unknown',
     },
     establishedYear: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updatedAt: {
+    updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },

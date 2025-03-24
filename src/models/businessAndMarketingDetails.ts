@@ -42,8 +42,8 @@ type BusinessAndMarketingDetailsModelType = {
     achievePreviousObjectives: boolean;
     file: Array<FileType>;
   };
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 interface BusinessAndMarketingDetailsAttributes
@@ -124,11 +124,11 @@ BusinessAndMarketingDetails.init(
       type: DataTypes.JSONB,
       allowNull: false,
     },
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updatedAt: {
+    updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },

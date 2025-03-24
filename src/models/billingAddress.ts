@@ -13,15 +13,18 @@ export type BillingAddressType = {
   state: string;
   city: string;
   streetAddress: string;
-  apartment: string;
+  apartment?: string;
   phone: string;
   orderNote?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 interface BillingAddressAttributes
-  extends Optional<BillingAddressType, 'id' | 'companyName' | 'orderNote'> {}
+  extends Optional<
+    BillingAddressType,
+    'id' | 'companyName' | 'orderNote' | 'apartment'
+  > {}
 
 class BillingAddress
   extends Model<BillingAddressType, BillingAddressAttributes>
@@ -32,16 +35,16 @@ class BillingAddress
   public firstName!: string;
   public lastName!: string;
   public email!: string;
-  public companyName!: string;
+  public companyName?: string;
   public region!: string;
   public state!: string;
   public city!: string;
   public streetAddress!: string;
-  public apartment!: string;
+  public apartment?: string;
   public phone!: string;
   public orderNote?: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public readonly created_at!: Date;
+  public readonly updated_at!: Date;
 }
 
 BillingAddress.init(
@@ -71,12 +74,10 @@ BillingAddress.init(
     email: {
       type: DataTypes.STRING(100),
       allowNull: false,
-      unique: true,
     },
     companyName: {
       type: DataTypes.TEXT,
-      allowNull: false,
-      unique: true,
+      allowNull: true,
     },
     region: {
       type: DataTypes.STRING,
@@ -90,28 +91,27 @@ BillingAddress.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-
     streetAddress: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     apartment: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
     orderNote: {
       type: DataTypes.TEXT,
+      allowNull: true,
     },
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updatedAt: {
+    updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
@@ -128,4 +128,5 @@ BillingAddress.init(
 // Establishing one-to-one relationship
 User.hasOne(BillingAddress, { foreignKey: 'userId', as: 'billingAddress' });
 BillingAddress.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
 export default BillingAddress;
