@@ -51,10 +51,10 @@ export const swaggerOptions: Options = {
                       type: 'string',
                       example: 'John23',
                     },
-                    role: {
-                      type: 'string',
-                      example: Role.USER,
-                    },
+                    // role: {
+                    //   type: 'string',
+                    //   example: Role.USER,
+                    // },
                   },
                   required: [
                     'firstName',
