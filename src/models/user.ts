@@ -12,8 +12,8 @@ export type UserModelType = {
   displayName: string;
   isVerified?: boolean;
   role: Role;
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 interface UserModelAttributes extends Optional<UserModelType, 'id'> {}
@@ -30,8 +30,8 @@ class User
   public displayName!: string;
   public role!: Role;
   public isVerified!: boolean;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public readonly created_at!: Date;
+  public readonly updated_at!: Date;
 }
 
 User.init(
@@ -74,11 +74,11 @@ User.init(
       defaultValue: false,
     },
 
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updatedAt: {
+    updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
