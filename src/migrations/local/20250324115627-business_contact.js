@@ -1,45 +1,61 @@
 'use strict';
 
-const Role = ['ADMIN', 'USER', 'MARKETER'];
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users_table', {
+    await queryInterface.createTable('business_form', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
       },
-      firstName: {
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'Users_table', // Ensure this matches your actual users table name
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      companyName: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      lastName: {
-        type: Sequelize.STRING(255),
+      companyRepresentative: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       email: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
-      password: {
+      companySize: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      phone: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      displayName: {
+      industry: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      role: {
-        type: Sequelize.ENUM(...Object.values(Role)),
+      companyAddress: {
+        type: Sequelize.TEXT,
         allowNull: false,
-        defaultValue: Role.USER,
       },
-      isVerified: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      businessType: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      establishedYear: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -55,6 +71,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users_table');
+    await queryInterface.dropTable('business_form');
   },
 };

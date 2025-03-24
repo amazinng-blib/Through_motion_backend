@@ -4,8 +4,7 @@ import dotenv from 'dotenv';
 import { errorHandler } from './middleware/errorHandler';
 import { notFoundHandler } from './middleware/notFound';
 import path from 'path';
-import { router as authRoutes } from './routes/user.routes';
-import { router as pricingRoutes } from './routes/subscription.routes';
+
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerOptions } from './swagger/swagger-options';
@@ -15,9 +14,6 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/services', pricingRoutes);
 
 // Serve Swagger UI at /api-docs endpoint
 
@@ -30,6 +26,16 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get('/', (req: Request, res: Response) => {
   res.send('This is through motion root of the API');
 });
+
+import { router as authRoutes } from './routes/user.routes';
+import { router as emailRoutes } from './routes/email-routes';
+import { router as billingAddressRoutes } from './routes/billing-address-routes';
+import { router as questionareRoutes } from './routes/questionare-routes';
+
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/email', emailRoutes);
+app.use('/api/v1/billing-address', billingAddressRoutes);
+app.use('/api/v1/questionare', questionareRoutes);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

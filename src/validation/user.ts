@@ -27,10 +27,10 @@ export const LoginSchema = z.object({
 
 export type LoginType = z.infer<typeof LoginSchema>;
 
-export const ChangePasswordSchema = z.object({
-  oldPassword: z.string(),
-  newPassword: z.string(),
+export const UpdateProfileSchema = UserSchema.partial().extend({
+  oldPassword: z.string().optional(),
+  newPassword: z.string().optional(),
   id: z.number(),
 });
 
-export type ChangePasswordType = z.infer<typeof ChangePasswordSchema>;
+export type UpdateProfileType = z.infer<typeof UpdateProfileSchema>;

@@ -4,8 +4,8 @@ import { sequelize } from '../db/DB';
 export type SubscribeToNewsletterTypes = {
   id?: number;
   email: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 };
 
 interface SubscribeToNewsletterAttributes
@@ -33,11 +33,11 @@ SubscribeToNewsletter.init(
       allowNull: false,
     },
 
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    updatedAt: {
+    updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
