@@ -439,16 +439,6 @@ export const swaggerOptions: Options = {
                       format: 'date',
                       example: '2010-05-15',
                     },
-                    createdAt: {
-                      type: 'string',
-                      format: 'date-time',
-                      example: '2024-01-01T12:00:00Z',
-                    },
-                    updatedAt: {
-                      type: 'string',
-                      format: 'date-time',
-                      example: '2024-01-15T12:00:00Z',
-                    },
                   },
                 },
               },
@@ -468,6 +458,26 @@ export const swaggerOptions: Options = {
 
             '400': {
               description: 'Invalid input',
+            },
+            '500': {
+              description: 'Internal server error',
+            },
+          },
+        },
+      },
+
+      '/questionare/contact-address': {
+        get: {
+          tags: ['Questionare routes'],
+          summary: 'Get Business and contact addresses',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'business and contact addresses',
             },
             '500': {
               description: 'Internal server error',
@@ -550,11 +560,11 @@ export const swaggerOptions: Options = {
                         achievePreviousObjectives: {
                           type: 'boolean',
                         },
+                        file: {
+                          type: 'string',
+                          format: 'binary',
+                        },
                       },
-                    },
-                    file: {
-                      type: 'string',
-                      format: 'binary',
                     },
                   },
                 },
@@ -572,6 +582,25 @@ export const swaggerOptions: Options = {
                   },
                 },
               },
+            },
+          },
+        },
+      },
+      '/questionare/marketing-details': {
+        get: {
+          tags: ['Questionare routes'],
+          summary: 'Get contact and marketting addresses',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'contact and marketting addresses',
+            },
+            '500': {
+              description: 'Internal server error',
             },
           },
         },
