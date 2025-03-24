@@ -10,7 +10,7 @@ export type UserModelType = {
   email: string;
   password: string;
   display_name: string;
-  is_Verified?: boolean;
+  is_verified?: boolean;
   role: Role;
   created_at?: Date;
   updated_at?: Date;
@@ -29,7 +29,7 @@ class User
   public password!: string;
   public display_name!: string;
   public role!: Role;
-  public is_Verified!: boolean;
+  public is_verified!: boolean;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 }
@@ -69,7 +69,7 @@ User.init(
       defaultValue: Role.USER,
     },
 
-    is_Verified: {
+    is_verified: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
