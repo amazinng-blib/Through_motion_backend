@@ -4,17 +4,17 @@ import { Role } from '../enum/user.enums';
 export const userRoleEnums = z.nativeEnum(Role);
 
 export const UserSchema = z.object({
-  firstName: z
+  first_name: z
     .string()
     .min(3, 'First name should be at least 3 characters')
     .max(60, 'First name should not exceed 60 characters'),
-  lastName: z
+  last_name: z
     .string()
     .min(3, 'Last name should be at least 3 characters')
     .max(60, 'Last name should not exceed 60 characters'),
   email: z.string().email('Invalid email address'),
   password: z.string().optional(),
-  displayName: z.string(),
+  display_name: z.string(),
   role: userRoleEnums.default(Role.USER),
 });
 
