@@ -5,12 +5,12 @@ import { Role } from '../enum/user.enums';
 
 export type UserModelType = {
   id?: number;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
-  displayName: string;
-  isVerified?: boolean;
+  display_name: string;
+  is_Verified?: boolean;
   role: Role;
   created_at?: Date;
   updated_at?: Date;
@@ -23,13 +23,13 @@ class User
   implements UserModelType
 {
   public id?: number;
-  public firstName!: string;
-  public lastName!: string;
+  public first_name!: string;
+  public last_name!: string;
   public email!: string;
   public password!: string;
-  public displayName!: string;
+  public display_name!: string;
   public role!: Role;
-  public isVerified!: boolean;
+  public is_Verified!: boolean;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 }
@@ -41,11 +41,11 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    firstName: {
+    first_name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    lastName: {
+    last_name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
@@ -58,7 +58,7 @@ User.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    displayName: {
+    display_name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
@@ -69,7 +69,7 @@ User.init(
       defaultValue: Role.USER,
     },
 
-    isVerified: {
+    is_Verified: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
