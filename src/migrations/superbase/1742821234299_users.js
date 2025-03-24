@@ -10,13 +10,13 @@ exports.up = (pgm) => {
     'users',
     {
       id: { type: 'serial', primaryKey: true },
-      first_name: { type: 'varchar(255)', notNull: true },
-      last_name: { type: 'varchar(255)', notNull: true },
+      firstName: { type: 'varchar(255)', notNull: true },
+      lastName: { type: 'varchar(255)', notNull: true },
       email: { type: 'varchar(100)', notNull: true, unique: true },
       password: { type: 'varchar(255)', notNull: true },
-      display_name: { type: 'varchar(255)', notNull: true },
+      displayName: { type: 'varchar(255)', notNull: true },
       role: { type: 'user_role', notNull: true, default: 'USER' },
-      is_verified: { type: 'boolean', notNull: true, default: false },
+      isVerified: { type: 'boolean', notNull: true, default: false },
       created_at: {
         type: 'timestamp',
         notNull: true,
