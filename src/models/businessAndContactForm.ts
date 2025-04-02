@@ -112,13 +112,13 @@ BusinessAndContactForm.init(
   }
 );
 
-User.hasOne(BusinessAndContactForm, {
-  foreignKey: 'userId',
-  as: 'businessAndContactForm',
-});
-BusinessAndContactForm.belongsTo(User, {
-  foreignKey: 'userId',
-  as: 'owner', // Alias for easier queries
-});
+// User.hasOne(BusinessAndContactForm, {
+//   foreignKey: 'userId',
+//   as: 'businessAndContactForm',
+// });
+// BusinessAndContactForm.belongsTo(User, {
+//   foreignKey: 'userId',
+//   as: 'owner', // Alias for easier queries
+// });
 
 export default BusinessAndContactForm;

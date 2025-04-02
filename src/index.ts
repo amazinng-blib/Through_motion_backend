@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { errorHandler } from './middleware/errorHandler';
 import { notFoundHandler } from './middleware/notFound';
 import path from 'path';
+import './models/index';
 
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
@@ -31,11 +32,17 @@ import { router as authRoutes } from './routes/user.routes';
 import { router as emailRoutes } from './routes/email-routes';
 import { router as billingAddressRoutes } from './routes/billing-address-routes';
 import { router as questionareRoutes } from './routes/questionare-routes';
+import { router as plansRoutes } from './routes/plans-routes';
+import { router as subscriptionsRoutes } from './routes/subscriptions-route';
+import { router as webhookRoutes } from './routes/webhock-routes';
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/email', emailRoutes);
 app.use('/api/v1/billing-address', billingAddressRoutes);
 app.use('/api/v1/questionare', questionareRoutes);
+app.use('/api/v1/plans', plansRoutes);
+app.use('/api/v1/subscription', subscriptionsRoutes);
+app.use('/api/v1', webhookRoutes);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

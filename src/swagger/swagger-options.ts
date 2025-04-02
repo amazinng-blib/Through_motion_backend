@@ -604,6 +604,534 @@ export const swaggerOptions: Options = {
           },
         },
       },
+
+      '/plans': {
+        get: {
+          tags: ['Plan routes'],
+          summary: 'Get all requested quotes',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'Fetched successfully',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Plan',
+                  },
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+            },
+          },
+        },
+      },
+      '/plans/:${quoteId}': {
+        get: {
+          tags: ['Plan routes'],
+          summary: 'Get single requested quotes',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+
+          responses: {
+            '200': {
+              description: 'Fetched',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Plan',
+                  },
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+            },
+          },
+        },
+      },
+      '/plans/request-quote': {
+        post: {
+          tags: ['Plan routes'],
+          summary: 'Request quote route',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'apllication/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    userId: {
+                      type: 'integer',
+                      example: 123,
+                    },
+                    planId: {
+                      type: 'integer',
+                      example: 456,
+                    },
+                    title: {
+                      type: 'string',
+                      example: 'Premium Plan',
+                    },
+                    duration: {
+                      type: 'string',
+                      example: '30 days',
+                      nullable: true,
+                    },
+                    options: {
+                      type: 'array',
+                      description: 'List of options available in the plan',
+                      example: [
+                        {
+                          title: 'Feature A',
+                          price: 19.99,
+                        },
+                        {
+                          title: 'Feature B',
+                          price: 29.99,
+                        },
+                      ],
+                      items: {
+                        type: 'object',
+                        properties: {
+                          title: {
+                            type: 'string',
+                            example: 'Feature A',
+                          },
+                          price: {
+                            type: 'number',
+                            example: 19.99,
+                          },
+                        },
+                      },
+                    },
+                  },
+                  required: [
+                    'userId',
+                    'plan_title',
+                    'name',
+                    'business_email',
+                    'company_reps',
+                    'marketing_goals',
+                    'quote_url',
+                    'options',
+                  ],
+                },
+              },
+            },
+          },
+          responses: {
+            '201': {
+              description: 'Request sent',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Plan',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      '/plans/reply-quote': {
+        post: {
+          tags: ['Plan routes'],
+          summary: 'Reply quote route',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          requestBody: {
+            required: true,
+            content: {
+              'apllication/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    userId: {
+                      type: 'integer',
+                      format: 'int64',
+                      description: 'ID of the user who created the plan',
+                      example: 123,
+                    },
+                    subscriptionId: {
+                      type: 'integer',
+                      format: 'int64',
+                      description: 'ID of the related subscription',
+                      example: 456,
+                    },
+                    plan_title: {
+                      type: 'string',
+                      description: 'Title of the plan',
+                      example: 'Premium Marketing Plan',
+                    },
+                    name: {
+                      type: 'string',
+                      description: 'Name associated with the plan',
+                      example: 'John Doe',
+                    },
+                    business_email: {
+                      type: 'string',
+                      format: 'email',
+                      description: 'Business email associated with the plan',
+                      example: 'contact@business.com',
+                    },
+                    company_reps: {
+                      type: 'string',
+                      description: 'Company representatives for the plan',
+                      example: 'Jane Doe, Mark Smith',
+                    },
+                    web_address: {
+                      type: 'string',
+                      format: 'uri',
+                      description: 'Web address of the business',
+                      example: 'https://www.business.com',
+                    },
+                    marketing_goals: {
+                      type: 'string',
+                      description: 'Marketing goals associated with the plan',
+                      example: 'Increase brand awareness and lead generation',
+                    },
+                    is_replied: {
+                      type: 'boolean',
+                      description: 'Indicates if the plan has been replied to',
+                      example: false,
+                    },
+                    quote_url: {
+                      type: 'string',
+                      format: 'uri',
+                      description: 'URL for the quote associated with the plan',
+                      example: 'https://www.business.com/quote.pdf',
+                    },
+                    options: {
+                      type: 'array',
+                      items: {
+                        type: 'object',
+                        properties: {
+                          title: {
+                            type: 'string',
+                            description: 'Title of the option',
+                            example: 'SEO Optimization',
+                          },
+                          price: {
+                            type: 'number',
+                            format: 'float',
+                            description: 'Price of the option',
+                            example: 299.99,
+                          },
+                        },
+                        required: ['title', 'price'],
+                      },
+                      description: 'List of options associated with the plan',
+                      example: [
+                        {
+                          title: 'SEO Optimization',
+                          price: 299.99,
+                        },
+                        {
+                          title: 'Social Media Marketing',
+                          price: 199.99,
+                        },
+                      ],
+                    },
+                  },
+                  required: [
+                    'userId',
+                    'plan_title',
+                    'name',
+                    'business_email',
+                    'company_reps',
+                    'marketing_goals',
+                    'quote_url',
+                    'options',
+                  ],
+                },
+              },
+            },
+          },
+          responses: {
+            '201': {
+              description: 'Request sent',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Plan',
+                  },
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+            },
+          },
+        },
+      },
+
+      '/subscription': {
+        get: {
+          tags: ['Subscription routes'],
+          summary: 'Get subscriptions quotes',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'Fetched successfully',
+              content: {
+                'application/json': {
+                  $ref: '#/components/schemas/Subscription',
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+            },
+          },
+        },
+      },
+
+      '/subscription/update-sub': {
+        post: {
+          tags: ['Subscription routes'],
+          summary:
+            'This route updates user sub to expired when subscription expires [check user sub before executing this route]',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+
+          requestBody: {
+            require: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    userId: {
+                      type: 'integer',
+                      example: 101,
+                      description: 'ID of the user',
+                    },
+                    planId: {
+                      type: 'integer',
+                      example: 202,
+                      description: 'ID of the subscribed plan',
+                    },
+                    subscribed_services: {
+                      type: 'array',
+                      description: 'List of subscribed services',
+                      items: {
+                        type: 'object',
+                        required: ['service_title', 'options'],
+                        properties: {
+                          service_title: {
+                            type: 'string',
+                            example: 'Premium Support',
+                          },
+                          options: {
+                            type: 'array',
+                            items: {
+                              type: 'object',
+                              required: [
+                                'title',
+                                'price',
+                                'started_on',
+                                'ends_at',
+                              ],
+                              properties: {
+                                title: {
+                                  type: 'string',
+                                  example: '24/7 Chat Support',
+                                },
+                                price: {
+                                  type: 'number',
+                                  format: 'float',
+                                  example: 19.99,
+                                },
+
+                                started_on: {
+                                  type: 'string',
+                                  format: 'date-time',
+                                  example: '2024-08-01T00:00:00Z',
+                                },
+                                ends_at: {
+                                  type: 'string',
+                                  format: 'date-time',
+                                  example: '2024-09-01T00:00:00Z',
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    duration: {
+                      type: 'string',
+                      example: '30 days',
+                      nullable: true,
+                    },
+                    is_paid: {
+                      type: 'boolean',
+                      example: true,
+                    },
+                    is_verified: {
+                      type: 'boolean',
+                      example: false,
+                    },
+                  },
+                  required: ['userId', 'planId', 'subscribed_services'],
+                },
+              },
+            },
+          },
+          responses: {
+            '201': {
+              description: 'Request sent',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Subscription',
+                  },
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+            },
+          },
+        },
+      },
+
+      '/subscription/subscribe': {
+        post: {
+          tags: ['Subscription routes'],
+          summary:
+            'Subscription route --- For creating or updating subscriptions',
+          security: [
+            {
+              bearerAuth: [],
+            },
+          ],
+          requestBody: {
+            require: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    userId: {
+                      type: 'integer',
+                      example: 101,
+                      description: 'ID of the user',
+                    },
+                    planId: {
+                      type: 'integer',
+                      example: 202,
+                      description: 'ID of the subscribed plan',
+                    },
+                    subscribed_services: {
+                      type: 'array',
+                      description: 'List of subscribed services',
+                      items: {
+                        type: 'object',
+                        required: ['service_title', 'options'],
+                        properties: {
+                          service_title: {
+                            type: 'string',
+                            example: 'Premium Support',
+                          },
+                          options: {
+                            type: 'array',
+                            items: {
+                              type: 'object',
+                              required: [
+                                'title',
+                                'price',
+                                'started_on',
+                                'ends_at',
+                              ],
+                              properties: {
+                                title: {
+                                  type: 'string',
+                                  example: '24/7 Chat Support',
+                                },
+                                price: {
+                                  type: 'number',
+                                  format: 'float',
+                                  example: 19.99,
+                                },
+
+                                started_on: {
+                                  type: 'string',
+                                  format: 'date-time',
+                                  example: '2024-08-01T00:00:00Z',
+                                },
+                                ends_at: {
+                                  type: 'string',
+                                  format: 'date-time',
+                                  example: '2024-09-01T00:00:00Z',
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    duration: {
+                      type: 'string',
+                      example: '30 days',
+                      nullable: true,
+                    },
+                    reference_number: {
+                      type: 'string',
+                      example: '252723783kajas88q09q09q',
+                    },
+                  },
+                  required: [
+                    'userId',
+                    'planId',
+                    'subscribed_services',
+                    'reference_number',
+                  ],
+                },
+              },
+            },
+          },
+          responses: {
+            '201': {
+              description: 'Request sent',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Subscription',
+                  },
+                },
+              },
+            },
+            '500': {
+              description: 'Internal server error',
+            },
+          },
+        },
+      },
     },
     components: {
       schemas: {
@@ -815,6 +1343,299 @@ export const swaggerOptions: Options = {
             },
             // createdAt: { type: 'string', format: 'date-time' },
             // updatedAt: { type: 'string', format: 'date-time' },
+          },
+        },
+
+        Payment: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              format: 'int64',
+              description: 'Unique identifier for the payment',
+            },
+            userId: {
+              type: 'integer',
+              format: 'int64',
+              description: 'ID of the user who made the payment',
+            },
+            planId: {
+              type: 'integer',
+              format: 'int64',
+              description: 'ID of the plan associated with the payment',
+            },
+            amount: {
+              type: 'number',
+              format: 'float',
+              description: 'Amount paid by the user',
+            },
+            method: {
+              type: 'string',
+              description: 'Payment method used (e.g., credit card, PayPal)',
+            },
+            is_verified: {
+              type: 'boolean',
+              description: 'Indicates if the payment is verified',
+            },
+            created_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Timestamp of when the payment was created',
+            },
+            updated_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Timestamp of the last update to the payment',
+            },
+          },
+          required: ['userId', 'planId', 'method', 'is_verified'],
+        },
+
+        Plan: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              format: 'int64',
+              description: 'Unique identifier for the plan',
+            },
+            userId: {
+              type: 'integer',
+              format: 'int64',
+              description: 'ID of the user who created the plan',
+            },
+            subscriptionId: {
+              type: 'integer',
+              format: 'int64',
+              description: 'ID of the related subscription',
+            },
+            plan_title: {
+              type: 'string',
+              description: 'Title of the plan',
+            },
+            name: {
+              type: 'string',
+              description: 'Name associated with the plan',
+            },
+            business_email: {
+              type: 'string',
+              format: 'email',
+              description: 'Business email associated with the plan',
+            },
+            company_reps: {
+              type: 'string',
+              description: 'Company representatives for the plan',
+            },
+            web_address: {
+              type: 'string',
+              format: 'uri',
+              description: 'Web address of the business',
+            },
+            marketing_goals: {
+              type: 'string',
+              description: 'Marketing goals associated with the plan',
+            },
+            is_replied: {
+              type: 'boolean',
+              description: 'Indicates if the plan has been replied to',
+            },
+            quote_url: {
+              type: 'string',
+              format: 'uri',
+              description: 'URL for the quote associated with the plan',
+            },
+            options: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  title: {
+                    type: 'string',
+                    description: 'Title of the option',
+                  },
+                  price: {
+                    type: 'number',
+                    format: 'float',
+                    description: 'Price of the option',
+                  },
+                },
+                required: ['title', 'price'],
+              },
+              description: 'List of options associated with the plan',
+            },
+            created_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Timestamp of when the plan was created',
+            },
+            updated_at: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Timestamp of the last update to the plan',
+            },
+          },
+          required: [
+            'userId',
+            'plan_title',
+            'name',
+            'business_email',
+            'company_reps',
+            'marketing_goals',
+            'is_replied',
+            'quote_url',
+            'options',
+          ],
+        },
+        Pricing: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'integer',
+              example: 1,
+            },
+            userId: {
+              type: 'integer',
+              example: 123,
+            },
+            planId: {
+              type: 'integer',
+              example: 456,
+            },
+            title: {
+              type: 'string',
+              example: 'Premium Plan',
+            },
+            duration: {
+              type: 'string',
+              example: '30 days',
+              nullable: true,
+            },
+            options: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  title: {
+                    type: 'string',
+                    example: 'Feature A',
+                  },
+                  price: {
+                    type: 'number',
+                    example: 19.99,
+                  },
+                },
+              },
+            },
+            created_at: {
+              type: 'string',
+              format: 'date-time',
+              example: '2024-08-09T12:34:56Z',
+            },
+            updated_at: {
+              type: 'string',
+              format: 'date-time',
+              example: '2024-08-09T12:34:56Z',
+            },
+          },
+          required: ['userId', 'planId', 'title', 'options'],
+        },
+
+        Subscription: {
+          type: 'object',
+          required: ['userId', 'planId', 'subscribed_services', 'status'],
+          properties: {
+            id: {
+              type: 'integer',
+              example: 1,
+            },
+            userId: {
+              type: 'integer',
+              example: 101,
+              description: 'ID of the user',
+            },
+            planId: {
+              type: 'integer',
+              example: 202,
+              description: 'ID of the subscribed plan',
+            },
+            subscribed_services: {
+              type: 'array',
+              description: 'List of subscribed services',
+              items: {
+                type: 'object',
+                required: ['service_title', 'options'],
+                properties: {
+                  service_title: {
+                    type: 'string',
+                    example: 'Premium Support',
+                  },
+                  options: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      required: ['title', 'price', 'started_on', 'ends_at'],
+                      properties: {
+                        title: {
+                          type: 'string',
+                          example: '24/7 Chat Support',
+                        },
+                        price: {
+                          type: 'number',
+                          format: 'float',
+                          example: 19.99,
+                        },
+                        is_expired: {
+                          type: 'boolean',
+                          example: false,
+                        },
+                        started_on: {
+                          type: 'string',
+                          format: 'date-time',
+                          example: '2024-08-01T00:00:00Z',
+                        },
+                        ends_at: {
+                          type: 'string',
+                          format: 'date-time',
+                          example: '2024-09-01T00:00:00Z',
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            duration: {
+              type: 'string',
+              example: '30 days',
+              nullable: true,
+            },
+            is_paid: {
+              type: 'boolean',
+              example: true,
+            },
+            is_verified: {
+              type: 'boolean',
+              example: false,
+            },
+            status: {
+              type: 'string',
+              enum: ['created', 'updated', 'expired'],
+              example: 'created',
+            },
+            reference_number: {
+              type: 'string',
+              example: '252723783kajas88q09q09q',
+            },
+            created_at: {
+              type: 'string',
+              format: 'date-time',
+              example: '2024-08-01T12:34:56Z',
+            },
+            updated_at: {
+              type: 'string',
+              format: 'date-time',
+              example: '2024-08-02T14:20:30Z',
+            },
           },
         },
       },

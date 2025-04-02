@@ -126,7 +126,7 @@ BillingAddress.init(
 );
 
 // Establishing one-to-one relationship
-User.hasOne(BillingAddress, { foreignKey: 'userId', as: 'billingAddress' });
-BillingAddress.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+// User.hasOne(BillingAddress, { foreignKey: 'userId', as: 'billingAddress' });
+// BillingAddress.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
 export default BillingAddress;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
+import { AppError } from '../middleware/errorHandler';
 dotenv.config();
 
 export async function verifyPayment(
@@ -13,6 +14,10 @@ export async function verifyPayment(
       },
     }
   );
+
+  if (data?.data?.data?.status === 'failed') {
+    throw new AppError('Payment verification failed', 400);
+  }
 
   return data?.data?.data.status === 'success';
 }

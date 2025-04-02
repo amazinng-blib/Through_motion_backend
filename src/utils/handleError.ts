@@ -10,9 +10,7 @@ export function handleError(error: any, res: Response) {
 
   // Check if it's a Zod validation error
   if (error instanceof ZodError) {
-    return res
-      .status(400)
-      .json({ error: 'Please make sure you provide the correct input' });
+    return res.status(400).json({ error: 'Field validation failed' });
   }
 
   // For other unhandled errors, send a 500 Internal Server Error

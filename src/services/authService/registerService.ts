@@ -1,11 +1,19 @@
 import { AppError } from '../../middleware/errorHandler';
+import { Subscriptions } from '../../models';
 import User from '../../models/user';
+import { paymentChecker } from '../../utils/paymentChecker';
 import { generateStrongPassword } from '../../utils/strongPasswordGenerator';
 import { type UserType } from '../../validation/user';
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
 
 export async function registerUserService(input: UserType) {
+  await paymentChecker(
+    input.subscriptionId,
+    input.first_name,
+    input.last_name,
+    input.email
+  );
   const strongPassword = generateStrongPassword();
 
   const userPassword = input?.password ?? strongPassword;
@@ -36,6 +44,18 @@ export async function registerUserService(input: UserType) {
   // Create new user
   const newUser = await User.create(userData);
   const { password, ...userDetails } = newUser.dataValues;
+  await Subscriptions.update(
+    { userId: userDetails.id },
+    {
+      where: {
+        user: {
+          email: userData.email,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
+        },
+      },
+    }
+  );
 
   const response = {
     message: 'User registered successfully',

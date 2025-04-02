@@ -16,6 +16,7 @@ export const UserSchema = z.object({
   password: z.string().optional(),
   display_name: z.string(),
   role: userRoleEnums.default(Role.USER),
+  subscriptionId: z.number().positive(),
 });
 
 export type UserType = z.infer<typeof UserSchema>;

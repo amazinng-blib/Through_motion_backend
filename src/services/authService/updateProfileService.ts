@@ -11,19 +11,19 @@ export async function UpdateProfileService(input: Partial<UpdateProfileType>) {
   }
 
   // Update user details
-  if (input.firstName) {
-    user.firstName = input.firstName;
+  if (input.first_name) {
+    user.first_name = input.first_name;
   }
-  if (input.lastName) {
-    user.lastName = input.lastName;
+  if (input.last_name) {
+    user.last_name = input.last_name;
   }
 
   if (input.email) {
     user.email = input.email;
   }
 
-  if (input.displayName) {
-    user.displayName = input.displayName;
+  if (input.display_name) {
+    user.display_name = input.display_name;
   }
 
   /*

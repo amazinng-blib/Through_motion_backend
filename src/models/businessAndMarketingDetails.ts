@@ -141,14 +141,14 @@ BusinessAndMarketingDetails.init(
     timestamps: false,
   }
 );
-User.hasOne(BusinessAndMarketingDetails, {
-  foreignKey: 'userId',
-  as: 'businessAndMarketingDetails',
-});
+// User.hasOne(BusinessAndMarketingDetails, {
+//   foreignKey: 'userId',
+//   as: 'businessAndMarketingDetails',
+// });
 
-BusinessAndMarketingDetails.belongsTo(User, {
-  foreignKey: 'userId',
-  as: 'user', // Alias for easier queries
-});
+// BusinessAndMarketingDetails.belongsTo(User, {
+//   foreignKey: 'userId',
+//   as: 'user', // Alias for easier queries
+// });
 
 export default BusinessAndMarketingDetails;

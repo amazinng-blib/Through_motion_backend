@@ -10,6 +10,12 @@ exports.up = (pgm) => {
     'users',
     {
       id: { type: 'serial', primaryKey: true },
+      subscription_id: {
+        type: 'integer',
+        notNull: true,
+        references: '"subscriptions"(id)',
+        onDelete: 'CASCADE',
+      },
       first_name: { type: 'varchar(255)', notNull: true },
       last_name: { type: 'varchar(255)', notNull: true },
       email: { type: 'varchar(100)', notNull: true, unique: true },
