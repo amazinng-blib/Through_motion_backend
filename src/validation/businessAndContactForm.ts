@@ -1,22 +1,22 @@
 import { z } from 'zod';
 
 export const BusinessAndContactFormSchema = z.object({
-  userId: z.number().int().positive(),
-  companyName: z.string().min(1, 'Company name is required'),
+  user_id: z.number().int().positive(),
+  company_name: z.string().min(1, 'Company name is required'),
   email: z.string().email('Invalid email address'),
-  companyRepresentative: z
+  company_representative: z
     .string()
     .min(1, 'Company representative is required'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits'),
-  companyAddress: z.string().min(1, 'Company address is required'),
+  company_address: z.string().min(1, 'Company address is required'),
   industry: z.string().min(1, 'Industry is required'),
-  businessType: z.string().min(1, 'Business type is required'),
-  companySize: z
+  business_type: z.string().min(1, 'Business type is required'),
+  company_size: z
     .number()
     .int()
     .positive()
     .min(1, 'Company size must be at least 1'),
-  establishedYear: z.preprocess(
+  established_year: z.preprocess(
     (val) => (typeof val === 'string' ? new Date(val) : val),
     z
       .date()

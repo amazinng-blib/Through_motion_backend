@@ -7,7 +7,7 @@ export async function addBusinessAndMarketingDetailsQuestionareService(
   input: BusinessAndMarketingDetailsType
 ) {
   // Check whether user exists
-  const user = await User.findByPk(input.userId);
+  const user = await User.findByPk(input.user_id);
   if (!user) {
     throw new AppError('User does not exist', 404);
   }
@@ -26,11 +26,11 @@ export async function addBusinessAndMarketingDetailsQuestionareService(
 }
 
 export async function getBusinessAndMarketingDetailsQuestionareService(
-  userId: number
+  user_id: number
 ) {
   const businessDetails = await BusinessAndMarketingDetails.findOne({
     where: {
-      userId,
+      user_id,
     },
   });
 

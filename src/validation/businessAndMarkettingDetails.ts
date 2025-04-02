@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 export const BusinessAndMarketingDetailsSchema = z.object({
-  userId: z.number().int().positive(),
+  user_id: z.number().int().positive(),
   description: z.string().min(1, 'Description is required'),
   mission: z.string().min(1, 'Mission statement is required'),
-  targetAudience: z.string().min(1, 'Target audience is required'),
+  target_audience: z.string().min(1, 'Target audience is required'),
   scope: z.enum(['local', 'national', 'global']),
   competitors: z
     .array(
@@ -25,7 +25,7 @@ export const BusinessAndMarketingDetailsSchema = z.object({
       )
       .default([]), // Default empty array
   }),
-  digitalMarketing: z.object({
+  digital_marketing: z.object({
     hasRunDigitalMarketingBefore: z.boolean().default(false),
     digitalMarketingDetails: z
       .array(

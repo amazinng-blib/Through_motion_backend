@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const BusinessAndContactInfoSchema = z.object({
-  companyName: z.string().min(2, 'Company name must be more than a letter'),
+  company_name: z.string().min(2, 'Company name must be more than a letter'),
   email: z.string().email('Invalid email address'),
   representative: z
     .string()
@@ -11,8 +11,8 @@ export const BusinessAndContactInfoSchema = z.object({
   phone: z.string(),
   address: z.string(),
   industry: z.string(),
-  businessType: z.string(),
-  companySize: z.number(),
+  business_type: z.string(),
+  company_size: z.number(),
   yearEstablished: z.string(),
 });
 
