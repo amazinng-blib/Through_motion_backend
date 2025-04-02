@@ -14,18 +14,18 @@ exports.up = (pgm) => {
         type: 'serial',
         primaryKey: true,
       },
-      userId: {
+      user_id: {
         type: 'integer',
         notNull: true,
-        unique: true,
+        unique: true, // Remove this if users can have multiple billing addresses
         references: 'users(id)',
         onDelete: 'CASCADE',
       },
-      firstName: {
+      first_name: {
         type: 'varchar(255)',
         notNull: true,
       },
-      lastName: {
+      last_name: {
         type: 'varchar(255)',
         notNull: true,
       },
@@ -33,7 +33,7 @@ exports.up = (pgm) => {
         type: 'varchar(100)',
         notNull: true,
       },
-      companyName: {
+      company_name: {
         type: 'text',
         notNull: false,
       },
@@ -49,7 +49,7 @@ exports.up = (pgm) => {
         type: 'varchar(255)',
         notNull: true,
       },
-      streetAddress: {
+      street_address: {
         type: 'text',
         notNull: true,
       },
@@ -61,16 +61,18 @@ exports.up = (pgm) => {
         type: 'varchar(50)',
         notNull: true,
       },
-      orderNote: {
+      order_note: {
         type: 'text',
         notNull: false,
       },
       created_at: {
         type: 'timestamp',
+        notNull: true,
         default: pgm.func('current_timestamp'),
       },
       updated_at: {
         type: 'timestamp',
+        notNull: true,
         default: pgm.func('current_timestamp'),
       },
     },
@@ -78,7 +80,7 @@ exports.up = (pgm) => {
       ifNotExists: true,
     }
   );
-  pgm.createIndex('billing_address', 'userId');
+  pgm.createIndex('billing_address', 'user_id');
 };
 
 /**

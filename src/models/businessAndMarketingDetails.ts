@@ -25,16 +25,16 @@ type DigitalMarketingDetailType = {
 type BusinessAndMarketingDetailsModelType = {
   id?: number;
   description: string;
-  userId: number;
+  user_id: number;
   mission: string;
-  targetAudience: string;
+  target_audience: string;
   scope: 'local' | 'national' | 'global';
   competitors: CompetitorType[];
   ads: {
     isRunning: boolean;
     adsDetails: AdDetailType[];
   };
-  digitalMarketing: {
+  digital_marketing: {
     hasRunDigitalMarketingBefore: boolean;
     digitalMarketingDetails: DigitalMarketingDetailType[];
   };
@@ -57,14 +57,14 @@ class BusinessAndMarketingDetails
   implements BusinessAndMarketingDetailsModelType
 {
   public id?: number;
-  public userId!: number;
+  public user_id!: number;
   public description!: string;
   public mission!: string;
-  public targetAudience!: string;
+  public target_audience!: string;
   public scope!: 'local' | 'national' | 'global';
   public competitors!: CompetitorType[];
   public ads!: { isRunning: boolean; adsDetails: AdDetailType[] };
-  public digitalMarketing!: {
+  public digital_marketing!: {
     hasRunDigitalMarketingBefore: boolean;
     digitalMarketingDetails: DigitalMarketingDetailType[];
   };
@@ -83,7 +83,7 @@ BusinessAndMarketingDetails.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: true,
@@ -100,7 +100,7 @@ BusinessAndMarketingDetails.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    targetAudience: {
+    target_audience: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -116,7 +116,7 @@ BusinessAndMarketingDetails.init(
       type: DataTypes.JSONB,
       allowNull: false,
     },
-    digitalMarketing: {
+    digital_marketing: {
       type: DataTypes.JSONB,
       allowNull: false,
     },

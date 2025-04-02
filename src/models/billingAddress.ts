@@ -4,18 +4,18 @@ import User from './user';
 
 export type BillingAddressType = {
   id?: number;
-  userId: number;
-  firstName: string;
-  lastName: string;
+  user_id: number;
+  first_name: string;
+  last_name: string;
   email: string;
-  companyName?: string;
+  company_name?: string;
   region: string;
   state: string;
   city: string;
-  streetAddress: string;
+  street_address: string;
   apartment?: string;
   phone: string;
-  orderNote?: string;
+  order_note?: string;
   created_at?: Date;
   updated_at?: Date;
 };
@@ -23,7 +23,7 @@ export type BillingAddressType = {
 interface BillingAddressAttributes
   extends Optional<
     BillingAddressType,
-    'id' | 'companyName' | 'orderNote' | 'apartment'
+    'id' | 'company_name' | 'order_note' | 'apartment'
   > {}
 
 class BillingAddress
@@ -31,18 +31,18 @@ class BillingAddress
   implements BillingAddressType
 {
   public id?: number;
-  public userId!: number;
-  public firstName!: string;
-  public lastName!: string;
+  public user_id!: number;
+  public first_name!: string;
+  public last_name!: string;
   public email!: string;
-  public companyName?: string;
+  public company_name?: string;
   public region!: string;
   public state!: string;
   public city!: string;
-  public streetAddress!: string;
+  public street_address!: string;
   public apartment?: string;
   public phone!: string;
-  public orderNote?: string;
+  public order_note?: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 }
@@ -54,7 +54,7 @@ BillingAddress.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: true,
@@ -63,11 +63,11 @@ BillingAddress.init(
         key: 'id',
       },
     },
-    firstName: {
+    first_name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    lastName: {
+    last_name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
@@ -75,7 +75,7 @@ BillingAddress.init(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    companyName: {
+    company_name: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
@@ -91,7 +91,7 @@ BillingAddress.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    streetAddress: {
+    street_address: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -103,7 +103,7 @@ BillingAddress.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    orderNote: {
+    order_note: {
       type: DataTypes.TEXT,
       allowNull: true,
     },

@@ -1,5 +1,5 @@
 /**
- * @type {import('node-pg-migrate').ColumnDefinitions | undefined}
+ * @type {import('node-pg-migrate').MigrationBuilder}
  */
 exports.shorthands = undefined;
 
@@ -11,7 +11,7 @@ exports.up = (pgm) => {
     'business_and_marketing_details',
     {
       id: { type: 'serial', primaryKey: true },
-      userId: {
+      user_id: {
         type: 'integer',
         notNull: true,
         unique: true,
@@ -20,16 +20,15 @@ exports.up = (pgm) => {
       },
       description: { type: 'text', notNull: true },
       mission: { type: 'text', notNull: true },
-      targetAudience: { type: 'text', notNull: true },
+      target_audience: { type: 'text', notNull: true },
       scope: {
-        type: 'varchar(10)',
+        type: "enum('local', 'national', 'global')",
         notNull: true,
-        check: "scope IN ('local', 'national', 'global')",
       },
       competitors: { type: 'jsonb', notNull: true },
       ads: { type: 'jsonb', notNull: true },
-      digitalMarketing: { type: 'jsonb', notNull: true },
-      previousCampaign: { type: 'jsonb', notNull: true },
+      digital_marketing: { type: 'jsonb', notNull: true },
+      previous_campaign: { type: 'jsonb', notNull: true },
       created_at: {
         type: 'timestamp',
         notNull: true,
@@ -47,7 +46,7 @@ exports.up = (pgm) => {
   );
 
   // Add index for foreign key reference
-  pgm.createIndex('business_and_marketing_details', 'userId');
+  pgm.createIndex('business_and_marketing_details', 'user_id');
 };
 
 /**

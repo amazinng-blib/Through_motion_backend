@@ -4,16 +4,16 @@ import { sequelize } from '../db/DB';
 
 type BusinessAndContactModelType = {
   id?: number;
-  userId: number;
-  companyName: string;
+  user_id: number;
+  company_name: string;
   email: string;
-  companyRepresentative: string;
+  company_representative: string;
   phone: string;
-  companyAddress: string;
+  company_address: string;
   industry: string;
-  businessType: string;
-  companySize: number;
-  establishedYear: Date;
+  business_type: string;
+  company_size: number;
+  established_year: Date;
   created_at?: Date;
   updated_at?: Date;
 };
@@ -26,16 +26,16 @@ class BusinessAndContactForm
   implements BusinessAndContactModelType
 {
   public id?: number;
-  public userId!: number;
-  public companyName!: string;
+  public user_id!: number;
+  public company_name!: string;
   public email!: string;
-  public companyRepresentative!: string;
+  public company_representative!: string;
   public phone!: string;
-  public companyAddress!: string;
+  public company_address!: string;
   public industry!: string;
-  public businessType!: string;
-  public companySize!: number;
-  public establishedYear!: Date;
+  public business_type!: string;
+  public company_size!: number;
+  public established_year!: Date;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 }
@@ -47,7 +47,7 @@ BusinessAndContactForm.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: true,
@@ -56,11 +56,11 @@ BusinessAndContactForm.init(
         key: 'id',
       },
     },
-    companyName: {
+    company_name: {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    companyRepresentative: {
+    company_representative: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -68,7 +68,7 @@ BusinessAndContactForm.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    companySize: {
+    company_size: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -80,17 +80,17 @@ BusinessAndContactForm.init(
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    companyAddress: {
+    company_address: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
 
-    businessType: {
+    business_type: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'unknown',
     },
-    establishedYear: {
+    established_year: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },

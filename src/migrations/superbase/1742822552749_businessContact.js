@@ -14,18 +14,17 @@ exports.up = (pgm) => {
         type: 'serial',
         primaryKey: true,
       },
-      userId: {
+      user_id: {
         type: 'integer',
         notNull: true,
-        unique: true,
         references: 'users(id)',
         onDelete: 'CASCADE',
       },
-      companyName: {
+      company_name: {
         type: 'varchar(255)',
         notNull: true,
       },
-      companyRepresentative: {
+      company_representative: {
         type: 'varchar(255)',
         notNull: true,
       },
@@ -38,7 +37,7 @@ exports.up = (pgm) => {
         type: 'varchar(255)',
         notNull: true,
       },
-      companyAddress: {
+      company_address: {
         type: 'text',
         notNull: true,
       },
@@ -46,16 +45,16 @@ exports.up = (pgm) => {
         type: 'varchar(255)',
         notNull: true,
       },
-      businessType: {
+      business_type: {
         type: 'varchar(255)',
         notNull: true,
         default: "'unknown'",
       },
-      companySize: {
+      company_size: {
         type: 'integer',
         notNull: true,
       },
-      establishedYear: {
+      established_year: {
         type: 'date',
         notNull: true,
       },
@@ -72,7 +71,7 @@ exports.up = (pgm) => {
       ifNotExists: true,
     }
   );
-  pgm.createIndex('business_form', 'userId');
+  pgm.createIndex('business_form', 'user_id');
 };
 
 /**
