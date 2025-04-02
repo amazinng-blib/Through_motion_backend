@@ -80,19 +80,4 @@ Payment.init(
   }
 );
 
-// User.hasMany(Payment, {
-//   foreignKey: 'userId',
-//   as: 'pricing',
-// });
-
-// Payment.belongsTo(User, {
-//   foreignKey: 'userId',
-//   as: 'user_payment',
-// });
-
-// Payment.belongsTo(Plan, {
-//   foreignKey: 'planId',
-//   as: 'payment',
-// });
-
 export default Payment;

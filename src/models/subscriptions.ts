@@ -22,7 +22,7 @@ export enum SubscriptionStatus {
   EXPIRED = 'expired',
 }
 
- type UserType = {
+type UserType = {
   first_name: string;
   last_name: string;
   email: string;
@@ -141,9 +141,5 @@ Subscriptions.init(
     underscored: true,
   }
 );
-
-// Subscriptions.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-// Subscriptions.belongsTo(Plan, { foreignKey: 'planId', as: 'plan' });
-// Subscriptions.hasOne(Plan, { foreignKey: 'planId' });
 
 export default Subscriptions;

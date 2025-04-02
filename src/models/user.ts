@@ -103,9 +103,4 @@ User.init(
   }
 );
 
-// User.hasOne(Subscriptions, {
-//   foreignKey: 'subscriptionId',
-//   as: 'subscription',
-// });
-
 export default User;

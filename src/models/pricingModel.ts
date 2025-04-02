@@ -109,23 +109,4 @@ Pricing.init(
   }
 );
 
-// User.hasMany(Pricing, {
-//   foreignKey: 'userId',
-//   as: 'pricing',
-// });
-
-// Plans.hasOne(Pricing, {
-//   foreignKey: 'planId',
-//   as: 'plans',
-// });
-
-// Pricing.belongsTo(User, {
-//   foreignKey: 'userId',
-//   as: 'user', // Alias for easier queries
-// });
-// Pricing.belongsTo(Plans, {
-//   foreignKey: 'planId',
-//   as: 'pricing', // Alias for easier queries
-// });
-
 export default Pricing;
