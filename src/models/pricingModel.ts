@@ -8,10 +8,10 @@ type OptionsType = {
   price: number;
 };
 
-export type PricingType = {
+type PricingType = {
   id?: number;
-  userId: number;
-  planId: number;
+  user_id: number;
+  plan_id: number;
   title: string;
   options: Array<OptionsType>;
   duration?: string;
@@ -29,8 +29,8 @@ class Pricing
   implements PricingType
 {
   public id?: number;
-  public userId!: number;
-  public planId!: number;
+  public user_id!: number;
+  public plan_id!: number;
   // public is_paid!: boolean;
   // public is_verified!: boolean;
   // public is_active!: boolean;
@@ -48,7 +48,7 @@ Pricing.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -56,7 +56,7 @@ Pricing.init(
         key: 'id',
       },
     },
-    planId: {
+    plan_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: true,

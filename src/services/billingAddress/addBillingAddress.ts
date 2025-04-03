@@ -5,7 +5,7 @@ import { BillingAddressType } from '../../validation/billingAddress';
 
 export async function addBillingAddressService(input: BillingAddressType) {
   // check whether user exist
-  const user = await User.findByPk(input.userId);
+  const user = await User.findByPk(input.user_id);
   if (!user) {
     throw new AppError('User does not exist', 404);
   }

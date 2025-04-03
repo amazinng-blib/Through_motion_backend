@@ -29,9 +29,9 @@ export async function UpdateProfileService(input: Partial<UpdateProfileType>) {
   /*
    * If the user wants to update the password, verify the old one first
    */
-  if (input.oldPassword && input.newPassword) {
+  if (input.old_password && input.new_password) {
     const passwordMatch = await bcrypt.compare(
-      input.oldPassword,
+      input.old_password,
       user.password
     );
 
@@ -41,7 +41,7 @@ export async function UpdateProfileService(input: Partial<UpdateProfileType>) {
 
     // Encrypt the new password and save it
     const salt = await bcrypt.genSalt();
-    user.password = await bcrypt.hash(input.newPassword, salt);
+    user.password = await bcrypt.hash(input.new_password, salt);
   }
 
   await user.save();

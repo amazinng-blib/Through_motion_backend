@@ -9,8 +9,8 @@ const OptionsSchema = z.object({
 // Define the Pricing schema
 export const PricingSchema = z.object({
   id: z.number().optional(),
-  userId: z.number(),
-  planId: z.number(),
+  user_id: z.number(),
+  plan_id: z.number(),
   duration: z.string().optional().default('30 days'),
   title: z.string(),
   options: z.array(OptionsSchema),

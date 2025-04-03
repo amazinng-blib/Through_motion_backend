@@ -11,7 +11,7 @@ export async function getUserBillingAddressService(userId: number) {
 
   const userBillingAddress = await BillingAddress.findOne({
     where: {
-      userId,
+      user_id: userId,
     },
   });
 

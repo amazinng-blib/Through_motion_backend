@@ -12,7 +12,7 @@ export type UserModelType = {
   password: string;
   display_name: string;
   is_verified?: boolean;
-  subscriptionId: number;
+  subscription_id: number;
   role: Role;
   created_at?: Date;
   updated_at?: Date;
@@ -25,7 +25,7 @@ class User
   implements UserModelType
 {
   public id?: number;
-  public subscriptionId!: number;
+  public subscription_id!: number;
   public first_name!: string;
   public last_name!: string;
   public email!: string;
@@ -44,7 +44,7 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    subscriptionId: {
+    subscription_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

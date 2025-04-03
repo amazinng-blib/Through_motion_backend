@@ -1,14 +1,16 @@
 import { AppError } from '../../middleware/errorHandler';
 import { sequelize } from '../../db/DB'; // Ensure you import sequelize
 import Plans from '../../models/planModel';
-import Pricing, { PricingType } from '../../models/pricingModel';
+import { PricingType } from '../../validation/pricingSchema';
+import Pricing from '../../models/pricingModel';
+// import Pricing, { PricingType } from '../../models/pricingModel';
 
 export async function replyQuoteService(input: PricingType) {
   const transaction = await sequelize.transaction(); // Start a transaction
   try {
     // Find the associated Plan
     const plan = await Plans.findOne({
-      where: { id: input.planId },
+      where: { id: input.plan_id },
       transaction,
     });
 
@@ -22,7 +24,7 @@ export async function replyQuoteService(input: PricingType) {
     // Update is_replied in the Plan
     const updatedPlan = await Plans.update(
       { is_replied: true },
-      { where: { id: input.planId }, transaction }
+      { where: { id: input.plan_id }, transaction }
     );
 
     // Commit the transaction

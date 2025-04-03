@@ -101,7 +101,7 @@ async function createOrUpdateSubscription(
       throw new AppError('Failed to create subscription', 500);
     }
     await Plan.update(
-      { subscriptionId: sub.id },
+      { subscription_id: sub.id },
       { where: { id: input.planId }, transaction }
     );
     return sub;

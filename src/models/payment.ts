@@ -4,8 +4,8 @@ import User from './user';
 import Plan from './planModel';
 export type PaymentType = {
   id?: number;
-  userId: number;
-  planId: number;
+  user_id: number;
+  plan_id: number;
   amount?: number;
   method: string;
   is_verified: boolean;
@@ -20,8 +20,8 @@ class Payment
   implements PaymentType
 {
   public id?: number;
-  public userId!: number;
-  public planId!: number;
+  public user_id!: number;
+  public plan_id!: number;
   public is_verified!: boolean;
   public method!: string;
   public readonly created_at!: Date;
@@ -35,7 +35,7 @@ Payment.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -43,7 +43,7 @@ Payment.init(
         key: 'id',
       },
     },
-    planId: {
+    plan_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

@@ -31,6 +31,10 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
+                    subscription_id: {
+                      type: 'integer',
+                      example: 5,
+                    },
                     first_name: {
                       type: 'string',
                       example: 'John',
@@ -57,11 +61,12 @@ export const swaggerOptions: Options = {
                     // },
                   },
                   required: [
-                    'firstName',
-                    'lastName',
+                    'first_name',
+                    'last_name',
                     'email',
                     'password',
-                    'displayName',
+                    'display_name',
+                    'subscription_id',
                   ],
                 },
               },
@@ -160,15 +165,15 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
-                    firstName: { type: 'string', example: 'John' },
-                    lastName: { type: 'string', example: 'Doe' },
+                    first_name: { type: 'string', example: 'John' },
+                    last_name: { type: 'string', example: 'Doe' },
                     email: { type: 'string', example: 'johndoe@gmail.com' },
-                    displayName: { type: 'string', example: 'JohnDoe33' },
-                    oldPassword: {
+                    display_name: { type: 'string', example: 'JohnDoe33' },
+                    old_password: {
                       type: 'string',
                       example: 'JohnDoe123456##!',
                     },
-                    newPassword: {
+                    new_password: {
                       type: 'string',
                       example: 'JohnDoe1234566##!',
                     },
@@ -203,7 +208,8 @@ export const swaggerOptions: Options = {
       '/email/get-in-touch': {
         post: {
           tags: ['Email Routes'],
-          summary: 'Get In touch endpoint',
+          summary:
+            'Get In touch endpoint -- You can pass file but its optional',
 
           requestBody: {
             required: true,
@@ -307,31 +313,34 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
-                    userId: { type: 'integer', example: 1 },
-                    firstName: { type: 'string', example: 'John' },
-                    lastName: { type: 'string', example: 'Doe' },
+                    user_id: { type: 'integer', example: 1 },
+                    first_name: { type: 'string', example: 'John' },
+                    last_name: { type: 'string', example: 'Doe' },
                     email: { type: 'string', example: 'john.doe@gmail.com' },
-                    companyName: { type: 'string', example: 'Doe Enterprises' },
+                    company_name: {
+                      type: 'string',
+                      example: 'Doe Enterprises',
+                    },
                     region: { type: 'string', example: 'North America' },
                     state: { type: 'string', example: 'California' },
                     city: { type: 'string', example: 'Los Angeles' },
-                    streetAddress: { type: 'string', example: '123 Main St' },
+                    street_address: { type: 'string', example: '123 Main St' },
                     apartment: { type: 'string', example: 'Apt 4B' },
                     phone: { type: 'string', example: '+1 123-456-7890' },
-                    orderNote: {
+                    order_note: {
                       type: 'string',
                       example: 'Leave package at front door',
                     },
                   },
                   required: [
-                    'userId',
-                    'firstName',
-                    'lastName',
+                    'user_id',
+                    'first_name',
+                    'last_name',
                     'email',
                     'region',
                     'state',
                     'city',
-                    'streetAddress',
+                    'street_address',
                     'phone',
                   ],
                 },
@@ -501,7 +510,7 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
-                    userId: {
+                    user_id: {
                       type: 'integer',
                       format: 'int32',
                       example: 1,
@@ -512,7 +521,7 @@ export const swaggerOptions: Options = {
                     mission: {
                       type: 'string',
                     },
-                    targetAudience: {
+                    target_audience: {
                       type: 'string',
                     },
                     scope: {
@@ -539,7 +548,7 @@ export const swaggerOptions: Options = {
                         },
                       },
                     },
-                    digitalMarketing: {
+                    digital_marketing: {
                       type: 'object',
                       properties: {
                         hasRunDigitalMarketingBefore: {
@@ -553,17 +562,12 @@ export const swaggerOptions: Options = {
                         },
                       },
                     },
-                    previousCampaign: {
-                      type: 'object',
-                      properties: {
-                        achievePreviousObjectives: {
-                          type: 'boolean',
-                        },
-                        file: {
-                          type: 'string',
-                          format: 'binary',
-                        },
-                      },
+                    achievePreviousObjectives: {
+                      type: 'boolean',
+                    },
+                    file: {
+                      type: 'string',
+                      format: 'binary',
                     },
                   },
                 },
@@ -588,7 +592,7 @@ export const swaggerOptions: Options = {
       '/questionare/marketing-details': {
         get: {
           tags: ['Questionare routes'],
-          summary: 'Get contact and marketting addresses',
+          summary: 'Get all contact and marketting addresses',
           security: [
             {
               bearerAuth: [],
@@ -635,6 +639,17 @@ export const swaggerOptions: Options = {
         get: {
           tags: ['Plan routes'],
           summary: 'Get single requested quotes',
+          parameters: [
+            {
+              name: 'id',
+              in: 'path',
+              required: true,
+              schema: {
+                type: 'integer',
+              },
+              description: 'ID of the quote',
+            },
+          ],
           security: [
             {
               bearerAuth: [],
@@ -674,11 +689,11 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
-                    userId: {
+                    user_id: {
                       type: 'integer',
                       example: 123,
                     },
-                    planId: {
+                    plan_id: {
                       type: 'integer',
                       example: 456,
                     },
@@ -720,7 +735,8 @@ export const swaggerOptions: Options = {
                     },
                   },
                   required: [
-                    'userId',
+                    'user_id',
+                    'plan_id',
                     'plan_title',
                     'name',
                     'business_email',
@@ -763,13 +779,13 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
-                    userId: {
+                    user_id: {
                       type: 'integer',
                       format: 'int64',
                       description: 'ID of the user who created the plan',
                       example: 123,
                     },
-                    subscriptionId: {
+                    subscription_id: {
                       type: 'integer',
                       format: 'int64',
                       description: 'ID of the related subscription',
@@ -851,7 +867,7 @@ export const swaggerOptions: Options = {
                     },
                   },
                   required: [
-                    'userId',
+                    'user_id',
                     'plan_title',
                     'name',
                     'business_email',
@@ -886,6 +902,66 @@ export const swaggerOptions: Options = {
         get: {
           tags: ['Subscription routes'],
           summary: 'Get subscriptions quotes',
+          parameters: [
+            {
+              name: 'page',
+              in: 'query',
+              required: false,
+              schema: {
+                type: 'integer',
+                default: 1,
+              },
+              description: 'Page number for pagination (default: 1)',
+            },
+            {
+              name: 'limit',
+              in: 'query',
+              required: false,
+              schema: {
+                type: 'integer',
+                default: 10,
+              },
+              description: 'Number of results per page (default: 10)',
+            },
+            {
+              name: 'startDate',
+              in: 'query',
+              required: false,
+              schema: {
+                type: 'string',
+                format: 'date',
+              },
+              description: 'Filter results from this start date (YYYY-MM-DD)',
+            },
+            {
+              name: 'endDate',
+              in: 'query',
+              required: false,
+              schema: {
+                type: 'string',
+                format: 'date',
+              },
+              description: 'Filter results up to this end date (YYYY-MM-DD)',
+            },
+            {
+              name: 'is_expired',
+              in: 'query',
+              required: false,
+              schema: {
+                type: 'boolean',
+              },
+              description: 'Filter businesses based on expiration status',
+            },
+            {
+              name: 'duration',
+              in: 'query',
+              required: false,
+              schema: {
+                type: 'integer',
+              },
+              description: 'Filter businesses by duration in days',
+            },
+          ],
           security: [
             {
               bearerAuth: [],
@@ -988,16 +1064,17 @@ export const swaggerOptions: Options = {
                       example: '30 days',
                       nullable: true,
                     },
-                    is_paid: {
-                      type: 'boolean',
-                      example: true,
-                    },
-                    is_verified: {
-                      type: 'boolean',
-                      example: false,
+                    reference_number: {
+                      type: 'string',
+                      example: '252723783kajas88q09q09q',
                     },
                   },
-                  required: ['userId', 'planId', 'subscribed_services'],
+                  required: [
+                    'userId',
+                    'planId',
+                    'subscribed_services',
+                    'reference_number',
+                  ],
                 },
               },
             },
@@ -1139,6 +1216,7 @@ export const swaggerOptions: Options = {
           type: 'object',
           properties: {
             id: { type: 'integer' },
+            subscription_id: { type: 'integer' },
             first_name: { type: 'string' },
             last_name: { type: 'string' },
             email: { type: 'string', format: 'email' },
@@ -1150,12 +1228,12 @@ export const swaggerOptions: Options = {
             updated_at: { type: 'string', format: 'date-time' },
           },
           required: [
-            'firstName',
-            'lastName',
+            'first_name',
+            'last_name',
             'email',
             'password',
-            'displayName',
-            'role',
+            'display_name',
+            'subscription_id',
           ],
         },
         GetInTouch: {
@@ -1171,31 +1249,31 @@ export const swaggerOptions: Options = {
         BillingAddress: {
           type: 'object',
           properties: {
-            userId: { type: 'integer', example: 1 },
-            firstName: { type: 'string', example: 'John' },
-            lastName: { type: 'string', example: 'Doe' },
+            user_id: { type: 'integer', example: 1 },
+            first_name: { type: 'string', example: 'John' },
+            last_name: { type: 'string', example: 'Doe' },
             email: { type: 'string', example: 'john.doe@gmail.com' },
-            companyName: { type: 'string', example: 'Doe Enterprises' },
+            company_name: { type: 'string', example: 'Doe Enterprises' },
             region: { type: 'string', example: 'North America' },
             state: { type: 'string', example: 'California' },
             city: { type: 'string', example: 'Los Angeles' },
-            streetAddress: { type: 'string', example: '123 Main St' },
+            street_address: { type: 'string', example: '123 Main St' },
             apartment: { type: 'string', example: 'Apt 4B' },
             phone: { type: 'string', example: '+1 123-456-7890' },
-            orderNote: {
+            order_note: {
               type: 'string',
               example: 'Leave package at front door',
             },
           },
           required: [
-            'userId',
-            'firstName',
-            'lastName',
+            'user_id',
+            'first_name',
+            'last_name',
             'email',
             'region',
             'state',
             'city',
-            'streetAddress',
+            'street_address',
             'phone',
           ],
         },
@@ -1203,16 +1281,16 @@ export const swaggerOptions: Options = {
         BusinessAndContactForm: {
           type: 'object',
           required: [
-            'userId',
-            'companyName',
+            'user_id',
+            'company_name',
             'email',
-            'companyRepresentative',
+            'company_representative',
             'phone',
-            'companyAddress',
+            'company_address',
             'industry',
-            'businessType',
-            'companySize',
-            'establishedYear',
+            'business_type',
+            'company_size',
+            'established_year',
           ],
           properties: {
             id: {
@@ -1220,12 +1298,12 @@ export const swaggerOptions: Options = {
               format: 'int32',
               example: 1,
             },
-            userId: {
+            user_id: {
               type: 'integer',
               format: 'int32',
               example: 1,
             },
-            companyName: {
+            company_name: {
               type: 'string',
               example: 'Tech Solutions Ltd.',
             },
@@ -1234,7 +1312,7 @@ export const swaggerOptions: Options = {
               format: 'email',
               example: 'info@techsolutions.com',
             },
-            companyRepresentative: {
+            company_representative: {
               type: 'string',
               example: 'John Doe',
             },
@@ -1242,7 +1320,7 @@ export const swaggerOptions: Options = {
               type: 'string',
               example: '+1 234 567 8901',
             },
-            companyAddress: {
+            company_address: {
               type: 'string',
               example: '123 Business Street, New York, NY 10001',
             },
@@ -1250,25 +1328,25 @@ export const swaggerOptions: Options = {
               type: 'string',
               example: 'Technology',
             },
-            businessType: {
+            business_type: {
               type: 'string',
               example: 'Private',
             },
-            companySize: {
+            company_size: {
               type: 'integer',
               example: 150,
             },
-            establishedYear: {
+            established_year: {
               type: 'string',
               format: 'date',
               example: '2010-05-15',
             },
-            createdAt: {
+            created_at: {
               type: 'string',
               format: 'date-time',
               example: '2024-01-01T12:00:00Z',
             },
-            updatedAt: {
+            updated_at: {
               type: 'string',
               format: 'date-time',
               example: '2024-01-15T12:00:00Z',
@@ -1300,10 +1378,10 @@ export const swaggerOptions: Options = {
           type: 'object',
           properties: {
             // id: { type: 'integer', format: 'int32' },
-            userId: { type: 'integer', format: 'int32' },
+            user_id: { type: 'integer', format: 'int32' },
             description: { type: 'string' },
             mission: { type: 'string' },
-            targetAudience: { type: 'string' },
+            target_audience: { type: 'string' },
             scope: {
               type: 'string',
               enum: ['local', 'national', 'global'],
@@ -1322,7 +1400,7 @@ export const swaggerOptions: Options = {
                 },
               },
             },
-            digitalMarketing: {
+            digital_marketing: {
               type: 'object',
               properties: {
                 hasRunDigitalMarketingBefore: { type: 'boolean' },
@@ -1354,12 +1432,12 @@ export const swaggerOptions: Options = {
               format: 'int64',
               description: 'Unique identifier for the payment',
             },
-            userId: {
+            user_id: {
               type: 'integer',
               format: 'int64',
               description: 'ID of the user who made the payment',
             },
-            planId: {
+            plan_id: {
               type: 'integer',
               format: 'int64',
               description: 'ID of the plan associated with the payment',
@@ -1399,12 +1477,12 @@ export const swaggerOptions: Options = {
               format: 'int64',
               description: 'Unique identifier for the plan',
             },
-            userId: {
+            user_id: {
               type: 'integer',
               format: 'int64',
               description: 'ID of the user who created the plan',
             },
-            subscriptionId: {
+            subscription_id: {
               type: 'integer',
               format: 'int64',
               description: 'ID of the related subscription',
@@ -1475,7 +1553,7 @@ export const swaggerOptions: Options = {
             },
           },
           required: [
-            'userId',
+            'user_id',
             'plan_title',
             'name',
             'business_email',

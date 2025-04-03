@@ -8,7 +8,7 @@ dotenv.config();
 export async function requestQuoteService(input: PlanType) {
   const hasRequestedQuote = await Plans.findOne({
     where: {
-      userId: input.userId,
+      user_id: input.user_id,
       is_replied: false,
       plan_title: input.plan_title,
       business_email: input.business_email,

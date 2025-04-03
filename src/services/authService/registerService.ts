@@ -9,7 +9,7 @@ import validator from 'validator';
 
 export async function registerUserService(input: UserType) {
   await paymentChecker(
-    input.subscriptionId,
+    input.subscription_id,
     input.first_name,
     input.last_name,
     input.email

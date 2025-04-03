@@ -7,7 +7,8 @@ const OptionsSchema = z.object({
 
 export const PlanSchema = z.object({
   id: z.number().optional(),
-  userId: z.number(),
+  user_id: z.number(),
+  subscription_id: z.number().optional(),
   plan_title: z.string(),
   name: z.string(),
   business_email: z.string().email(),

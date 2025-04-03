@@ -7,14 +7,14 @@ export async function updateBillingAddressService(
   input: UpdateBillingAddressType
 ) {
   // Check whether user exists
-  const user = await User.findByPk(input.userId);
+  const user = await User.findByPk(input.user_id);
   if (!user) {
     throw new AppError('User does not exist', 404);
   }
 
   // Check if the user has an existing billing address
   const userBillingAddress = await BillingAddress.findOne({
-    where: { userId: input.userId },
+    where: { user_id: input.user_id },
   });
 
   if (!userBillingAddress) {
@@ -25,11 +25,11 @@ export async function updateBillingAddressService(
   }
 
   // Update the billing address
-  await BillingAddress.update(input, { where: { userId: input.userId } });
+  await BillingAddress.update(input, { where: { user_id: input.user_id } });
 
   // Retrieve the updated billing address
   const updatedBillingAddress = await BillingAddress.findOne({
-    where: { userId: input.userId },
+    where: { user_id: input.user_id },
   });
 
   return {
