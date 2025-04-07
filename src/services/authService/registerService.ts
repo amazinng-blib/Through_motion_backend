@@ -8,12 +8,17 @@ import bcrypt from 'bcryptjs';
 import validator from 'validator';
 
 export async function registerUserService(input: UserType) {
-  await paymentChecker(
-    input.subscription_id,
-    input.first_name,
-    input.last_name,
-    input.email
-  );
+  try {
+    await paymentChecker(
+      input.subscription_id,
+      input.first_name,
+      input.last_name,
+      input.email
+    );
+  } catch (error) {
+    throw error;
+  }
+
   const strongPassword = generateStrongPassword();
 
   const userPassword = input?.password ?? strongPassword;
