@@ -31,8 +31,8 @@ User.hasMany(Pricing, { foreignKey: 'user_id', as: 'pricing' });
 //belongsTo means "this model has a foreign key that references another model."
 
 Subscriptions.belongsTo(Plan, { foreignKey: 'planId', as: 'plan' });
+Plan.hasMany(Subscriptions, { foreignKey: 'planId', as: 'subscriptions' });
 Plan.hasMany(Payment, { foreignKey: 'plan_id', as: 'payment' });
-Plan.hasMany(Subscriptions, { foreignKey: 'plan_id', as: 'subscriptions' });
 Plan.hasMany(Pricing, { foreignKey: 'plan_id', as: 'pricing' });
 
 Payment.belongsTo(Plan, {
