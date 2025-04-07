@@ -7,7 +7,11 @@ export async function paymentChecker(
   last_name: string,
   email: string
 ) {
-  const hasPaid = await Subscriptions.findByPk(subscriptionId);
+  const hasPaid = await Subscriptions.findOne({
+    where: {
+      id: subscriptionId,
+    },
+  });
 
   if (!hasPaid) {
     throw new AppError('Subscribe to a plan to continue', 400);

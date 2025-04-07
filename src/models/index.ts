@@ -15,17 +15,17 @@ User.hasMany(Subscriptions, {
 Subscriptions.belongsTo(Plan, { foreignKey: 'planId', as: 'plan' });
 
 Payment.belongsTo(Plan, {
-  foreignKey: 'planId',
+  foreignKey: 'plan_id',
   as: 'payment',
 });
 
 BusinessAndMarketingDetails.belongsTo(User, {
-  foreignKey: 'userId',
+  foreignKey: 'user_id',
   as: 'user', // Alias for easier queries
 });
 
 BusinessAndContactForm.belongsTo(User, {
-  foreignKey: 'userId',
+  foreignKey: 'user_id',
   as: 'owner', // Alias for easier queries
 });
 

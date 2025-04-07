@@ -27,6 +27,7 @@ exports.up = (pgm) => {
       subscribed_services: { type: 'jsonb', notNull: true },
       duration: { type: 'text', notNull: false, default: '30 days' },
       status: { type: 'text', notNull: true, default: 'created' },
+      reference_number: { type: 'integer', notNull: true },
       created_at: {
         type: 'timestamp',
         notNull: true,
