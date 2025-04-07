@@ -1,7 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db/DB';
 import { Role } from '../enum/user.enums';
-import Subscriptions from './subscriptions';
 // import BusinessForm from './businessForm';
 
 export type UserModelType = {
@@ -12,7 +11,7 @@ export type UserModelType = {
   password: string;
   display_name: string;
   is_verified?: boolean;
-  subscription_id: number;
+  subscription_key: number;
   role: Role;
   created_at?: Date;
   updated_at?: Date;
@@ -25,7 +24,7 @@ class User
   implements UserModelType
 {
   public id?: number;
-  public subscription_id!: number;
+  public subscription_key!: number;
   public first_name!: string;
   public last_name!: string;
   public email!: string;
@@ -44,13 +43,8 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    subscription_id: {
+    subscription_key: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Subscriptions,
-        key: 'id',
-      },
     },
     first_name: {
       type: DataTypes.STRING(255),

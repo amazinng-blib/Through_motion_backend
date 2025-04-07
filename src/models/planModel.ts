@@ -1,7 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db/DB';
-import User from './user';
-import Subscriptions from './subscriptions';
 
 type OptionsType = {
   title: string;
@@ -12,7 +10,6 @@ export type PlanType = {
   id?: number;
   // user_id?: number;
   // subscription_id?: number;
-  payment_id?: number;
   plan_title: string;
   name: string;
   business_email: string;
@@ -26,8 +23,7 @@ export type PlanType = {
   updated_at?: Date;
 };
 
-interface PlanAttributes
-  extends Optional<PlanType, 'id' | 'web_address' | 'payment_id'> {}
+interface PlanAttributes extends Optional<PlanType, 'id' | 'web_address'> {}
 
 class Plan extends Model<PlanType, PlanAttributes> implements PlanType {
   public id?: number;

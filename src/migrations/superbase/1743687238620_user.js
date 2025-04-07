@@ -10,11 +10,9 @@ exports.up = (pgm) => {
     'users',
     {
       id: { type: 'serial', primaryKey: true },
-      subscription_id: {
+      subscription_key: {
         type: 'integer',
         notNull: true,
-        references: '"subscriptions"(id)',
-        onDelete: 'CASCADE',
       },
       first_name: { type: 'varchar(255)', notNull: true },
       last_name: { type: 'varchar(255)', notNull: true },
@@ -42,7 +40,7 @@ exports.up = (pgm) => {
   );
 
   // Add indexes
-  pgm.createIndex('users', 'subscription_id', { ifNotExists: true });
+  pgm.createIndex('users', 'subscription_key', { ifNotExists: true });
   pgm.createIndex('users', 'created_at', { ifNotExists: true });
   pgm.createIndex('users', 'email', { unique: true, ifNotExists: true }); // Explicit unique index
 };

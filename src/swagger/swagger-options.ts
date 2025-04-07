@@ -31,7 +31,7 @@ export const swaggerOptions: Options = {
                 schema: {
                   type: 'object',
                   properties: {
-                    subscription_id: {
+                    subscription_key: {
                       type: 'integer',
                       example: 5,
                     },
@@ -66,7 +66,7 @@ export const swaggerOptions: Options = {
                     'email',
                     'password',
                     'display_name',
-                    'subscription_id',
+                    'subscription_key',
                   ],
                 },
               },
@@ -1216,7 +1216,7 @@ export const swaggerOptions: Options = {
           type: 'object',
           properties: {
             id: { type: 'integer' },
-            subscription_id: { type: 'integer' },
+            subscription_key: { type: 'integer' },
             first_name: { type: 'string' },
             last_name: { type: 'string' },
             email: { type: 'string', format: 'email' },
