@@ -25,8 +25,6 @@ User.hasOne(BillingAddress, { foreignKey: 'userId', as: 'billingAddress' });
 Subscriptions.belongsTo(User, { foreignKey: 'userId', as: 'user_sub' });
 Subscriptions.belongsTo(Plan, { foreignKey: 'planId', as: 'plan' });
 
-Plan.hasMany(Subscriptions, { foreignKey: 'planId', as: 'subscriptions' });
-
 Payment.belongsTo(User, {
   foreignKey: 'userId',
   as: 'user_payment',

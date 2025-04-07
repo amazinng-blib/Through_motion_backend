@@ -35,7 +35,7 @@ export async function processPaystackWebhook(event: any) {
       ];
 
     const subData: SubscriptionsType = {
-      userId,
+      user_key: userId,
       user: metadata.user,
       planId,
       reference_number: metadata.reference_number,

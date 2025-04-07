@@ -71,12 +71,23 @@ exports.up = (pgm) => {
       ifNotExists: true,
     }
   );
-  pgm.createIndex('business_form', 'user_id');
+  pgm.createIndex('business_form', 'user_id', {
+    unique: true,
+    ifNotExists: true,
+  });
+  pgm.createIndex('business_form', 'company_name', {
+    unique: true,
+    ifNotExists: true,
+  });
+  pgm.createIndex('business_form', 'email', {
+    unique: true,
+    ifNotExists: true,
+  });
 };
 
 /**
  * @param {import('node-pg-migrate').MigrationBuilder} pgm
  */
 exports.down = (pgm) => {
-  pgm.dropTable('business_form');
+  pgm.dropTable('business_form', { ifExists: true, cascade: true });
 };

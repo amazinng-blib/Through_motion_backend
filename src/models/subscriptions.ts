@@ -30,7 +30,7 @@ type UserType = {
 
 export type PricingType = {
   id?: number;
-  userId?: number;
+  user_key?: number;
   user: UserType;
   planId: number;
   subscribed_services: Array<SubscribedServices>;
@@ -38,6 +38,7 @@ export type PricingType = {
   is_paid?: boolean;
   is_verified?: boolean;
   status: SubscriptionStatus;
+  reference_number: string;
   created_at?: Date;
   updated_at?: Date;
 };
@@ -51,7 +52,7 @@ interface SubscriptionsAttributes
     | 'is_verified'
     | 'created_at'
     | 'updated_at'
-    | 'userId'
+    | 'user_key'
   > {}
 
 class Subscriptions
@@ -59,11 +60,12 @@ class Subscriptions
   implements PricingType
 {
   public id?: number;
-  public userId?: number;
+  public user_key?: number;
   public user!: UserType;
   public planId!: number;
   public is_paid?: boolean;
   public is_verified?: boolean;
+  public reference_number!: string;
   public duration?: string;
   public subscribed_services!: Array<SubscribedServices>;
   public status!: SubscriptionStatus;
@@ -78,14 +80,8 @@ Subscriptions.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
+    user_key: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: User,
-        key: 'id',
-      },
-      onDelete: 'CASCADE',
     },
     planId: {
       type: DataTypes.INTEGER,
@@ -95,6 +91,11 @@ Subscriptions.init(
         key: 'id',
       },
       onDelete: 'CASCADE',
+    },
+
+    reference_number: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
 
     user: {

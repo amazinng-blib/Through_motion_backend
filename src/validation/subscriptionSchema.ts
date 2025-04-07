@@ -27,7 +27,7 @@ export const SubscribedServicesSchema = z.array(
 // Define Subscriptions schema
 export const SubscriptionsSchema = z.object({
   id: z.number().optional(),
-  userId: z.number(),
+  user_key: z.number().optional(),
   user: UserFieldTypeSchema,
   planId: z.number(),
   reference_number: z.string(),

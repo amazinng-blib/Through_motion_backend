@@ -21,8 +21,12 @@ exports.up = (pgm) => {
       email: { type: 'varchar(100)', notNull: true, unique: true },
       password: { type: 'varchar(255)', notNull: true },
       display_name: { type: 'varchar(255)', notNull: true },
-      role: { type: 'user_role', notNull: true, default: 'USER' },
-      is_verified: { type: 'boolean', notNull: true, default: false },
+      role: { type: 'user_role', notNull: true, default: pgm.func("'USER'") }, // Fixed ENUM default
+      is_verified: {
+        type: 'boolean',
+        notNull: true,
+        default: pgm.func('false'),
+      }, // Ensures proper boolean default
       created_at: {
         type: 'timestamp',
         notNull: true,
@@ -34,16 +38,19 @@ exports.up = (pgm) => {
         default: pgm.func('CURRENT_TIMESTAMP'),
       },
     },
-    {
-      ifNotExists: true,
-    }
+    { ifNotExists: true }
   );
+
+  // Add indexes
+  pgm.createIndex('users', 'subscription_id', { ifNotExists: true });
+  pgm.createIndex('users', 'created_at', { ifNotExists: true });
+  pgm.createIndex('users', 'email', { unique: true, ifNotExists: true }); // Explicit unique index
 };
 
 /**
  * @param {import('node-pg-migrate').MigrationBuilder} pgm
  */
 exports.down = (pgm) => {
-  pgm.dropTable('users');
-  pgm.dropType('user_role'); // Drop ENUM type
+  pgm.dropTable('users', { ifExists: true, cascade: true }); // Ensures safe rollback
+  pgm.dropType('user_role', { ifExists: true }); // Drop ENUM type safely
 };

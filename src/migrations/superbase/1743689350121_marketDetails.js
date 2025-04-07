@@ -6,7 +6,9 @@ exports.shorthands = undefined;
 /**
  * @param {import('node-pg-migrate').MigrationBuilder} pgm
  */
+
 exports.up = (pgm) => {
+  pgm.createType('scope', ['local', 'national', 'global']);
   pgm.createTable(
     'business_and_marketing_details',
     {
@@ -21,10 +23,8 @@ exports.up = (pgm) => {
       description: { type: 'text', notNull: true },
       mission: { type: 'text', notNull: true },
       target_audience: { type: 'text', notNull: true },
-      scope: {
-        type: "enum('local', 'national', 'global')",
-        notNull: true,
-      },
+      scope: { type: 'scope', notNull: true },
+
       competitors: { type: 'jsonb', notNull: true },
       ads: { type: 'jsonb', notNull: true },
       digital_marketing: { type: 'jsonb', notNull: true },
@@ -46,12 +46,19 @@ exports.up = (pgm) => {
   );
 
   // Add index for foreign key reference
-  pgm.createIndex('business_and_marketing_details', 'user_id');
+  pgm.createIndex('business_and_marketing_details', 'user_id', {
+    unique: true,
+    ifNotExists: true,
+  });
 };
 
 /**
  * @param {import('node-pg-migrate').MigrationBuilder} pgm
  */
 exports.down = (pgm) => {
-  pgm.dropTable('business_and_marketing_details');
+  pgm.dropTable('business_and_marketing_details', {
+    ifExists: true,
+    cascade: true,
+  });
+  pgm.dropType('scope');
 };

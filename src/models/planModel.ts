@@ -10,8 +10,8 @@ type OptionsType = {
 
 export type PlanType = {
   id?: number;
-  user_id: number;
-  subscription_id?: number;
+  // user_id?: number;
+  // subscription_id?: number;
   payment_id?: number;
   plan_title: string;
   name: string;
@@ -27,15 +27,12 @@ export type PlanType = {
 };
 
 interface PlanAttributes
-  extends Optional<
-    PlanType,
-    'id' | 'web_address' | 'subscription_id' | 'payment_id'
-  > {}
+  extends Optional<PlanType, 'id' | 'web_address' | 'payment_id'> {}
 
 class Plan extends Model<PlanType, PlanAttributes> implements PlanType {
   public id?: number;
-  public user_id!: number;
-  public subscriptionId?: number;
+  // public user_id?: number;
+  // public subscriptionId?: number;
   public name!: string;
   public company_reps!: string;
   public business_email!: string;
@@ -56,22 +53,22 @@ Plan.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: User,
-        key: 'id',
-      },
-    },
-    subscription_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Subscriptions,
-        key: 'id',
-      },
-    },
+    // user_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: true,
+    //   references: {
+    //     model: User,
+    //     key: 'id',
+    //   },
+    // },
+    // subscription_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: Subscriptions,
+    //     key: 'id',
+    //   },
+    // },
 
     name: {
       type: DataTypes.STRING,

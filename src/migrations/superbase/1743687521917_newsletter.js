@@ -27,11 +27,16 @@ exports.up = (pgm) => {
       ifNotExists: true,
     }
   );
+
+  pgm.createIndex('subscribe_to_newsletter', 'email', {
+    ifNotExists: true,
+    unique: true,
+  });
 };
 
 /**
  * @param {import('node-pg-migrate').MigrationBuilder} pgm
  */
 exports.down = (pgm) => {
-  pgm.dropTable('subscribe_to_newsletter');
+  pgm.dropTable('subscribe_to_newsletter', { cascade: true, ifExists: true });
 };

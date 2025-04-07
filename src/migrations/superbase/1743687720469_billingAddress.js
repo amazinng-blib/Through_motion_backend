@@ -80,12 +80,20 @@ exports.up = (pgm) => {
       ifNotExists: true,
     }
   );
-  pgm.createIndex('billing_address', 'user_id');
-};
+  pgm.createIndex('billing_address', 'user_id', {
+    ifNotExists: true,
+    unique: true,
+  });
+
+  pgm.createIndex('billing_address', 'email', {
+    unique: true,
+    ifNotExists: true,
+  });
+}; //using ifNotExist ensures that migration don't fail if the field exist
 
 /**
  * @param {import('node-pg-migrate').MigrationBuilder} pgm
  */
 exports.down = (pgm) => {
-  pgm.dropTable('billing_address');
+  pgm.dropTable('billing_address', { ifExists: true, cascade: true });
 };

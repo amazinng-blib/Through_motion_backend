@@ -1,10 +1,9 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../db/DB';
-import User from './user';
 import Plan from './planModel';
 export type PaymentType = {
   id?: number;
-  user_id: number;
+  user_key: number;
   plan_id: number;
   amount?: number;
   method: string;
@@ -20,7 +19,7 @@ class Payment
   implements PaymentType
 {
   public id?: number;
-  public user_id!: number;
+  public user_key!: number;
   public plan_id!: number;
   public is_verified!: boolean;
   public method!: string;
@@ -35,13 +34,8 @@ Payment.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    user_id: {
+    user_key: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: User,
-        key: 'id',
-      },
     },
     plan_id: {
       type: DataTypes.INTEGER,

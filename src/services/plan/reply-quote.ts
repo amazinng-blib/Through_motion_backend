@@ -3,7 +3,6 @@ import { sequelize } from '../../db/DB'; // Ensure you import sequelize
 import Plans from '../../models/planModel';
 import { PricingType } from '../../validation/pricingSchema';
 import Pricing from '../../models/pricingModel';
-// import Pricing, { PricingType } from '../../models/pricingModel';
 
 export async function replyQuoteService(input: PricingType) {
   const transaction = await sequelize.transaction(); // Start a transaction
@@ -29,6 +28,8 @@ export async function replyQuoteService(input: PricingType) {
 
     // Commit the transaction
     await transaction.commit();
+
+    // send email to the user --- Coming soon
 
     return {
       message: 'Quote replied successfully',

@@ -45,7 +45,7 @@ export async function registerUserService(input: UserType) {
   const newUser = await User.create(userData);
   const { password, ...userDetails } = newUser.dataValues;
   await Subscriptions.update(
-    { userId: userDetails.id },
+    { user_key: userDetails.id },
     {
       where: {
         user: {

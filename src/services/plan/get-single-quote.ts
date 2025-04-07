@@ -1,5 +1,5 @@
-import Plans from '../../models/planModel';
+import Plan from '../../models/planModel';
 
 export async function getSingleQuoteService(id: number) {
-  return await Plans.findByPk(id);
+  return await Plan.findByPk(id);
 }

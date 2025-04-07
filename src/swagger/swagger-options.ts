@@ -11,12 +11,12 @@ export const swaggerOptions: Options = {
     },
     servers: [
       {
-        url: 'http://localhost:4000/api/v1',
-        description: 'Development server',
-      },
-      {
         url: 'https://through-motion-backend.onrender.com/api/v1',
         description: 'Production server',
+      },
+      {
+        url: 'http://localhost:4000/api/v1',
+        description: 'Development server',
       },
     ],
     paths: {

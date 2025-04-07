@@ -5,7 +5,7 @@ import Plans from '../../models/planModel';
 
 export async function getUserSubscriptionsService(userId: number) {
   return await Subscriptions.findAll({
-    where: { userId },
+    where: { user_key: userId },
     include: [
       {
         model: Plans,

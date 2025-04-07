@@ -21,7 +21,7 @@ export async function checkDueSubscriptionsAndUpdate(
   // Fetch user subscriptions
   const userSubscriptions = await Subscriptions.findAll({
     where: {
-      userId,
+      user_key: userId,
       subscribed_services: {
         [Op.contains]: subscribed_services.map((service) => ({
           service_title: service.service_title,

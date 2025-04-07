@@ -37,7 +37,7 @@ export async function removeExpiredSubscription(
 ) {
   const expiredSubscription = await Subscriptions.findAll({
     where: {
-      userId,
+      user_key: userId,
       planId,
       subscribed_services: {
         [Op.contains]: subscribed_services.map((service) => ({
@@ -71,7 +71,7 @@ async function createOrUpdateSubscription(
 ) {
   const existingSubscription = await Subscriptions.findOne({
     where: {
-      userId: input.userId,
+      user_key: input.user_key,
       planId: input.planId,
       subscribed_services: {
         [Op.contains]: input.subscribed_services.map((service) => ({
@@ -97,13 +97,7 @@ async function createOrUpdateSubscription(
       { ...input, is_verified: true, status, is_paid: true },
       { transaction }
     );
-    if (!sub.id) {
-      throw new AppError('Failed to create subscription', 500);
-    }
-    await Plan.update(
-      { subscription_id: sub.id },
-      { where: { id: input.planId }, transaction }
-    );
+
     return sub;
   }
 }
