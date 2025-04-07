@@ -32,8 +32,8 @@ User.hasMany(Pricing, { foreignKey: 'user_id', as: 'pricing' });
 
 Plan.hasMany(Payment, { foreignKey: 'plan_id', as: 'payment' });
 Plan.hasMany(Pricing, { foreignKey: 'plan_id', as: 'pricing' });
-Plan.hasMany(Subscriptions, { foreignKey: 'planId', as: 'subscriptions' });
-Subscriptions.belongsTo(Plan, { foreignKey: 'planId', as: 'plan' });
+Plan.hasMany(Subscriptions, { foreignKey: 'plan_id', as: 'subscriptions' });
+Subscriptions.belongsTo(Plan, { foreignKey: 'plan_id', as: 'plan' });
 
 Payment.belongsTo(Plan, {
   foreignKey: 'plan_id',

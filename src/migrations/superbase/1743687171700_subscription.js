@@ -15,7 +15,7 @@ exports.up = (pgm) => {
       user_key: {
         type: 'integer',
       },
-      planId: {
+      plan_id: {
         type: 'integer',
         notNull: true,
         references: 'plans(id)',
@@ -44,7 +44,7 @@ exports.up = (pgm) => {
 
   // Indexing for faster lookups
   pgm.createIndex('subscriptions', 'user_key', { ifNotExists: true });
-  pgm.createIndex('subscriptions', 'planId', { ifNotExists: true });
+  pgm.createIndex('subscriptions', 'plan_id', { ifNotExists: true });
   pgm.createIndex('subscriptions', 'status', { ifNotExists: true });
   pgm.createIndex('subscriptions', 'created_at', { ifNotExists: true });
 };

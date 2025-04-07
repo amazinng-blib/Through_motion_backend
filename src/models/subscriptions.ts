@@ -32,7 +32,7 @@ export type PricingType = {
   id?: number;
   user_key?: number;
   user: UserType;
-  planId: number;
+  plan_id: number;
   subscribed_services: Array<SubscribedServices>;
   duration?: string;
   is_paid?: boolean;
@@ -62,7 +62,7 @@ class Subscriptions
   public id?: number;
   public user_key?: number;
   public user!: UserType;
-  public planId!: number;
+  public plan_id!: number;
   public is_paid?: boolean;
   public is_verified?: boolean;
   public reference_number!: string;
@@ -83,7 +83,7 @@ Subscriptions.init(
     user_key: {
       type: DataTypes.INTEGER,
     },
-    planId: {
+    plan_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

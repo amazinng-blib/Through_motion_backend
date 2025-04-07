@@ -29,7 +29,7 @@ export const SubscriptionsSchema = z.object({
   id: z.number().optional(),
   user_key: z.number().optional(),
   user: UserFieldTypeSchema,
-  planId: z.number(),
+  plan_id: z.number(),
   reference_number: z.string(),
   status: z.enum(Object.values(SubscriptionStatus) as [string, ...string[]]),
   subscribed_services: SubscribedServicesSchema,

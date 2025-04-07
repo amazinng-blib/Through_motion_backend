@@ -6,18 +6,18 @@ import Plans from '../../models/planModel';
 export async function getUserSubscriptionsService(userId: number) {
   return await Subscriptions.findAll({
     where: { user_key: userId },
-    include: [
-      {
-        model: Plans,
-        as: 'plan',
-        attributes: ['id', 'title', 'duration'],
-      },
-      {
-        model: User,
-        as: 'user',
-        attributes: ['id', 'first_name', 'last_name', 'email'],
-      },
-    ],
+    // include: [
+    //   {
+    //     model: Plans,
+    //     as: 'plan',
+    //     attributes: ['id', 'title', 'duration'],
+    //   },
+    //   {
+    //     model: User,
+    //     as: 'user',
+    //     attributes: ['id', 'first_name', 'last_name', 'email'],
+    //   },
+    // ],
     order: [['created_at', 'DESC']],
   });
 }

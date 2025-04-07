@@ -38,7 +38,7 @@ export async function removeExpiredSubscription(
   const expiredSubscription = await Subscriptions.findAll({
     where: {
       user_key: userId,
-      planId,
+      plan_id: planId,
       subscribed_services: {
         [Op.contains]: subscribed_services.map((service) => ({
           service_title: service.service_title,
@@ -51,7 +51,7 @@ export async function removeExpiredSubscription(
 
   for (const expired of expiredSubscription) {
     await Plan.destroy({
-      where: { id: expired.planId },
+      where: { id: expired.plan_id },
       transaction,
     });
     await Subscriptions.destroy({
@@ -72,7 +72,7 @@ async function createOrUpdateSubscription(
   const existingSubscription = await Subscriptions.findOne({
     where: {
       user_key: input.user_key,
-      planId: input.planId,
+      plan_id: input.plan_id,
       subscribed_services: {
         [Op.contains]: input.subscribed_services.map((service) => ({
           service_title: service.service_title,
