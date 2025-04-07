@@ -10,7 +10,7 @@ export async function paymentChecker(
   try {
     const hasPaid = await Subscriptions.findByPk(subscriptionId);
 
-    if (!hasPaid || !hasPaid.is_paid) {
+    if (!hasPaid) {
       throw new AppError('Subscribe to a plan to continue', 400);
     }
 
