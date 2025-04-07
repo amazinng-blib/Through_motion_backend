@@ -52,18 +52,18 @@ export async function getAllSubscriptionsService(
   // Fetch subscriptions with pagination and relations
   const { rows: subscriptions, count } = await Subscriptions.findAndCountAll({
     where: whereClause,
-    include: [
-      {
-        model: User,
-        as: 'user',
-        attributes: ['id', 'first_name', 'last_name', 'email'],
-      },
-      {
-        model: Plans,
-        as: 'plan',
-        attributes: ['id', 'title', 'price', 'planId'],
-      },
-    ],
+    // include: [
+    //   {
+    //     model: User,
+    //     as: 'user',
+    //     attributes: ['id', 'first_name', 'last_name', 'email'],
+    //   },
+    //   {
+    //     model: Plans,
+    //     as: 'plan',
+    //     attributes: ['id', 'title', 'price', 'planId'],
+    //   },
+    // ],
     limit,
     offset,
     order: [['created_at', 'DESC']],
