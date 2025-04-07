@@ -7,28 +7,12 @@ import Subscriptions from './subscriptions';
 import User from './user';
 
 // Define Relationships Here
-User.hasOne(Subscriptions, { foreignKey: 'userId', as: 'subscription' });
-User.hasMany(Payment, {
-  foreignKey: 'userId',
-  as: 'pricing',
+User.hasMany(Subscriptions, {
+  foreignKey: 'subscription_id',
+  as: 'subscription',
 });
-User.hasOne(BusinessAndMarketingDetails, {
-  foreignKey: 'userId',
-  as: 'businessAndMarketingDetails',
-});
-User.hasOne(BusinessAndContactForm, {
-  foreignKey: 'userId',
-  as: 'businessAndContactForm',
-});
-User.hasOne(BillingAddress, { foreignKey: 'userId', as: 'billingAddress' });
 
-Subscriptions.belongsTo(User, { foreignKey: 'userId', as: 'user_sub' });
 Subscriptions.belongsTo(Plan, { foreignKey: 'planId', as: 'plan' });
-
-Payment.belongsTo(User, {
-  foreignKey: 'userId',
-  as: 'user_payment',
-});
 
 Payment.belongsTo(Plan, {
   foreignKey: 'planId',
