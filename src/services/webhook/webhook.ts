@@ -28,7 +28,7 @@ export async function processPaystackWebhook(event: any) {
     }
 
     const userId = metadata.userId;
-    const planId = metadata.planId;
+    const plan_id = metadata.plan_id;
     const subscriptionStatus =
       SubscriptionStatus[
         metadata.status.toUpperCase() as keyof typeof SubscriptionStatus
@@ -37,7 +37,7 @@ export async function processPaystackWebhook(event: any) {
     const subData: SubscriptionsType = {
       user_key: userId,
       user: metadata.user,
-      planId,
+      plan_id,
       reference_number: metadata.reference_number,
       status: subscriptionStatus,
       subscribed_services: metadata.subscribed_services,

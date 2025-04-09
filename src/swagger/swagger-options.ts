@@ -685,40 +685,49 @@ export const swaggerOptions: Options = {
           requestBody: {
             required: true,
             content: {
-              'apllication/json': {
+              'application/json': {
                 schema: {
                   type: 'object',
                   properties: {
-                    user_id: {
-                      type: 'integer',
-                      example: 123,
-                    },
-                    plan_id: {
-                      type: 'integer',
-                      example: 456,
-                    },
-                    title: {
+                    plan_title: {
                       type: 'string',
                       example: 'Premium Plan',
                     },
-                    duration: {
+                    name: {
                       type: 'string',
-                      example: '30 days',
+                      example: 'John Doe',
+                    },
+                    business_email: {
+                      type: 'string',
+                      format: 'email',
+                      example: 'john@example.com',
+                    },
+                    company_reps: {
+                      type: 'string',
+                      example: 'Jane Smith, Tom Brown',
+                    },
+                    web_address: {
+                      type: 'string',
+                      format: 'uri',
                       nullable: true,
+                      example: 'https://example.com',
+                    },
+                    marketing_goals: {
+                      type: 'string',
+                      example: 'Increase social media engagement',
+                    },
+                    is_replied: {
+                      type: 'boolean',
+                      example: false,
+                    },
+                    quote_url: {
+                      type: 'string',
+                      format: 'uri',
+                      example: 'https://example.com/quote.pdf',
                     },
                     options: {
                       type: 'array',
                       description: 'List of options available in the plan',
-                      example: [
-                        {
-                          title: 'Feature A',
-                          price: 19.99,
-                        },
-                        {
-                          title: 'Feature B',
-                          price: 29.99,
-                        },
-                      ],
                       items: {
                         type: 'object',
                         properties: {
@@ -731,17 +740,17 @@ export const swaggerOptions: Options = {
                             example: 19.99,
                           },
                         },
+                        required: ['title', 'price'],
                       },
                     },
                   },
                   required: [
-                    'user_id',
-                    'plan_id',
                     'plan_title',
                     'name',
                     'business_email',
                     'company_reps',
                     'marketing_goals',
+                    'is_replied',
                     'quote_url',
                     'options',
                   ],
@@ -749,6 +758,7 @@ export const swaggerOptions: Options = {
               },
             },
           },
+
           responses: {
             '201': {
               description: 'Request sent',
@@ -995,18 +1005,31 @@ export const swaggerOptions: Options = {
           ],
 
           requestBody: {
-            require: true,
+            required: true,
             content: {
               'application/json': {
                 schema: {
                   type: 'object',
                   properties: {
-                    userId: {
+                    user_key: {
                       type: 'integer',
                       example: 101,
-                      description: 'ID of the user',
+                      description: 'Foreign key to user',
                     },
-                    planId: {
+                    user: {
+                      type: 'object',
+                      description: 'User data as JSON',
+                      properties: {
+                        first_name: { type: 'string', example: 'John' },
+                        last_name: { type: 'string', example: 'Doe' },
+                        email: {
+                          type: 'string',
+                          example: 'john.doe@example.com',
+                        },
+                      },
+                      required: ['first_name', 'last_name', 'email'],
+                    },
+                    plan_id: {
                       type: 'integer',
                       example: 202,
                       description: 'ID of the subscribed plan',
@@ -1042,7 +1065,6 @@ export const swaggerOptions: Options = {
                                   format: 'float',
                                   example: 19.99,
                                 },
-
                                 started_on: {
                                   type: 'string',
                                   format: 'date-time',
@@ -1070,8 +1092,8 @@ export const swaggerOptions: Options = {
                     },
                   },
                   required: [
-                    'userId',
-                    'planId',
+                    'user',
+                    'plan_id',
                     'subscribed_services',
                     'reference_number',
                   ],
@@ -1108,18 +1130,31 @@ export const swaggerOptions: Options = {
             },
           ],
           requestBody: {
-            require: true,
+            required: true,
             content: {
               'application/json': {
                 schema: {
                   type: 'object',
                   properties: {
-                    userId: {
+                    user_key: {
                       type: 'integer',
                       example: 101,
-                      description: 'ID of the user',
+                      description: 'Foreign key to user',
                     },
-                    planId: {
+                    user: {
+                      type: 'object',
+                      description: 'User data as JSON',
+                      properties: {
+                        first_name: { type: 'string', example: 'John' },
+                        last_name: { type: 'string', example: 'Doe' },
+                        email: {
+                          type: 'string',
+                          example: 'john.doe@example.com',
+                        },
+                      },
+                      required: ['first_name', 'last_name', 'email'],
+                    },
+                    plan_id: {
                       type: 'integer',
                       example: 202,
                       description: 'ID of the subscribed plan',
@@ -1155,7 +1190,6 @@ export const swaggerOptions: Options = {
                                   format: 'float',
                                   example: 19.99,
                                 },
-
                                 started_on: {
                                   type: 'string',
                                   format: 'date-time',
@@ -1183,8 +1217,8 @@ export const swaggerOptions: Options = {
                     },
                   },
                   required: [
-                    'userId',
-                    'planId',
+                    'user',
+                    'plan_id',
                     'subscribed_services',
                     'reference_number',
                   ],
@@ -1477,16 +1511,6 @@ export const swaggerOptions: Options = {
               format: 'int64',
               description: 'Unique identifier for the plan',
             },
-            user_id: {
-              type: 'integer',
-              format: 'int64',
-              description: 'ID of the user who created the plan',
-            },
-            subscription_id: {
-              type: 'integer',
-              format: 'int64',
-              description: 'ID of the related subscription',
-            },
             plan_title: {
               type: 'string',
               description: 'Title of the plan',
@@ -1553,7 +1577,6 @@ export const swaggerOptions: Options = {
             },
           },
           required: [
-            'user_id',
             'plan_title',
             'name',
             'business_email',
@@ -1620,18 +1643,34 @@ export const swaggerOptions: Options = {
 
         Subscription: {
           type: 'object',
-          required: ['userId', 'planId', 'subscribed_services', 'status'],
+          required: [
+            'user',
+            'plan_id',
+            'subscribed_services',
+            'status',
+            'reference_number',
+          ],
           properties: {
             id: {
               type: 'integer',
               example: 1,
             },
-            userId: {
+            user_key: {
               type: 'integer',
               example: 101,
-              description: 'ID of the user',
+              description: 'Foreign key to user table',
             },
-            planId: {
+            user: {
+              type: 'object',
+              description: 'User info stored as JSON',
+              properties: {
+                first_name: { type: 'string', example: 'John' },
+                last_name: { type: 'string', example: 'Doe' },
+                email: { type: 'string', example: 'john.doe@example.com' },
+              },
+              required: ['first_name', 'last_name', 'email'],
+            },
+            plan_id: {
               type: 'integer',
               example: 202,
               description: 'ID of the subscribed plan',
@@ -1653,19 +1692,13 @@ export const swaggerOptions: Options = {
                       type: 'object',
                       required: ['title', 'price', 'started_on', 'ends_at'],
                       properties: {
-                        title: {
-                          type: 'string',
-                          example: '24/7 Chat Support',
-                        },
+                        title: { type: 'string', example: '24/7 Chat Support' },
                         price: {
                           type: 'number',
                           format: 'float',
                           example: 19.99,
                         },
-                        is_expired: {
-                          type: 'boolean',
-                          example: false,
-                        },
+                        is_expired: { type: 'boolean', example: false },
                         started_on: {
                           type: 'string',
                           format: 'date-time',
