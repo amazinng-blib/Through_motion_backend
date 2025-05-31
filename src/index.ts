@@ -13,7 +13,15 @@ import { swaggerOptions } from './swagger/swagger-options';
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
+// Handle preflight OPTIONS requests for all routes
+app.options('*', cors());
 app.use(express.json());
 
 // Serve Swagger UI at /api-docs endpoint
